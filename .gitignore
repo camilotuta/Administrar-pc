@@ -1,0 +1,4 @@
+/dist
+resources/env/.env
+*.log
+/.vscode
