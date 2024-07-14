@@ -279,16 +279,18 @@ def body_ejecutando_comando_consola(comando):
     Returns:
         str: Mensaje de ejecución de comando
     """
-    return f"""
+    return (
+        f"""
 🖥️⚙️ *Ejecutando Comando en Consola* ⚙️🖥️
 
 ¡Hola *{NOMBRE_USUARIO}*!
 
-El comando *{comando}* se está ejecutando en la consola de Windows. Por favor, espera un momento
-mientras procesamos tu solicitud.
+El comando *{comando}* se está ejecutando en la consola de Windows. Por favor, espera un momento"""
+        + """mientras procesamos tu solicitud.
 
 *Gracias por tu paciencia.*
 """
+    )
 
 
 def body_error_comando_consola(error):
@@ -300,7 +302,8 @@ def body_error_comando_consola(error):
     Returns:
         str: Mensaje de error de ejecución de comando
     """
-    return f"""
+    return (
+        f"""
 ❌⚠️ *Error al Ejecutar Comando* ⚠️❌
 
 ¡Hola *{NOMBRE_USUARIO}*!
@@ -309,11 +312,12 @@ Hubo un problema al intentar ejecutar el comando en la consola de Windows. El er
         
 `{error.replace("\n","")}`
 
-Por favor, verifica el comando y vuelve a intentarlo. Si el problema persiste, contacta con soporte 
-técnico para obtener ayuda.
+Por favor, verifica el comando y vuelve a intentarlo. Si el problema persiste, contacta con """
+        + """soporte técnico para obtener ayuda.
 
 *Gracias por tu comprensión.*
 """
+    )
 
 
 def body_lista_comandos(lista_archivos):
