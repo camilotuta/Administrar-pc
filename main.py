@@ -87,11 +87,11 @@ if __name__ == "__main__":
                             mensajes.body_mensaje_error_reiniciado()
                         )
 
-            elif "consola:" in mensaje_whatsapp.obtener_ultimo_mensaje().lower():
+            elif "consola: " in mensaje_whatsapp.obtener_ultimo_mensaje().lower():
                 comando = (
                     mensaje_whatsapp.obtener_ultimo_mensaje()
                     .lower()
-                    .replace("consola:", "")
+                    .replace("consola: ", "")
                 )
                 mensaje_whatsapp.enviar_mensaje(sistema.ejecutar_consola(comando))
 
