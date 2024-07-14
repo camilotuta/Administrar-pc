@@ -285,7 +285,7 @@ def body_ejecutando_comando_consola(comando):
 
 ¡Hola *{NOMBRE_USUARIO}*!
 
-El comando *{comando}* se está ejecutando en la consola de Windows. Por favor, espera un momento"""
+El comando `{comando}` se está ejecutando en la consola de Windows. Por favor, espera un momento"""
         + """mientras procesamos tu solicitud.
 
 *Gracias por tu paciencia.*
