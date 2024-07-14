@@ -8,7 +8,6 @@ import bateria
 import mensaje_whatsapp
 import mensajes
 
-
 ENVIAR_ALERTA_AUTOMATICA = True
 
 if __name__ == "__main__":
