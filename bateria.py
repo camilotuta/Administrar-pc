@@ -22,21 +22,24 @@ def bateria_esta_cargando():
 
 
 def obtener_tiempo_restante():
-    """Devolver el tiempo de uso que le queda a la bateria
+    """Devolver el tiempo de uso que le queda a la batería
 
-    Return: (str) horas, minutos, segundos de uso de bateria
+    Return: (str) horas, minutos, segundos de uso de batería
     """
+    battery = psutil.sensors_battery()
 
-    secs_left = psutil.sensors_battery().secsleft
+    if battery is None:
+        return "No se pudo obtener la información de la batería."
+
+    secs_left = battery.secsleft
+
+    if secs_left == psutil.POWER_TIME_UNLIMITED:
+        return "Batería con tiempo ilimitado (conectado a corriente)."
+    if secs_left == psutil.POWER_TIME_UNKNOWN:
+        return "Tiempo de batería desconocido."
 
     hours, remainder = divmod(secs_left, 3600)
     minutes, seconds = divmod(remainder, 60)
-    if hours < 0:
-        hours = -hours
-    if minutes < 0:
-        minutes = -minutes
-    if seconds < 0:
-        seconds = -seconds
 
     return f"{hours}h {minutes}m {seconds}s"
 
