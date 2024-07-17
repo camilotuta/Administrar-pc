@@ -6,14 +6,12 @@ import os
 import subprocess
 from ctypes import POINTER, cast
 
-import psutil
 import mensaje
 import mensaje_error
+import psutil
 import screen_brightness_control as sbc
 from comtypes import CLSCTX_ALL
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
-
-NOMBRE_USUARIO = os.environ.get("USERNAME").capitalize()
 
 
 def apagar_pc(tiempo_minutos):
@@ -56,8 +54,7 @@ def ejecutar_consola(comando):
         )
         return mensaje.body_mensaje_comando_consola((str(comando).capitalize()))
     except subprocess.CalledProcessError as e:
-        print(e.stderr)
-        return mensaje_error.body_mensaje_error_comando_consola(e.stderr)
+        return mensaje_error.body_mensaje_error_comando_consola(str(e.stderr))
 
 
 def bloquear_pc(tiempo_minutos):

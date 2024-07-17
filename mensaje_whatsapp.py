@@ -1,16 +1,20 @@
 """Módulo para administrar los mensajes de WhatsApp por Twilio"""
 
 # cSpell:ignore twilio whatsapp bateria dotenv proyects
-import os
 from tkinter import messagebox
-import dotenv_path  # pylint: disable=unused-import  # noqa: F401
 
 from twilio.rest import Client
+from user_data import (
+    AUTH_TOKEN_ENV,
+    FROM_WHATSAPP_NUMBER_ENV,
+    SID_ENV,
+    TO_WHATSAPP_NUMBER_ENV,
+)
 
-SID = os.getenv("SID")
-AUTH_TOKEN = os.getenv("AUTH_TOKEN")
-FROM_WHATSAPP_NUMBER = os.getenv("FROM_WHATSAPP_NUMBER")
-TO_WHATSAPP_NUMBER = os.getenv("TO_WHATSAPP_NUMBER")
+SID = SID_ENV
+AUTH_TOKEN = AUTH_TOKEN_ENV
+FROM_WHATSAPP_NUMBER = FROM_WHATSAPP_NUMBER_ENV
+TO_WHATSAPP_NUMBER = TO_WHATSAPP_NUMBER_ENV
 
 
 def conectar_cliente():

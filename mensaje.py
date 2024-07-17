@@ -1,16 +1,22 @@
 """Modulo para acceder a todos los mensajes por defecto para enviar con Twilio"""
 
-# cSpell:ignore bateria conéctalo activacion desactivacion
-
-import sistema
+# cSpell:ignore bateria conéctalo activacion desactivacion dotenv
+from sistema import (
+    obtener_brillo,
+    obtener_estado_bateria,
+    obtener_porcentaje_bateria,
+    obtener_tiempo_restante_bateria,
+    obtener_volumen,
+)
+from user_data import NOMBRE_ENV
 
 
 def body_mensaje_cambiar_volumen():
     """Mensaje de confirmación para ajustar el volumen"""
     return f"""
-🔊 *Volumen Ajustado al {sistema.obtener_volumen()}* 🔊
+🔊 *Volumen Ajustado al {obtener_volumen()}%* 🔊
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 El volumen se ha ajustado correctamente. Si deseas realizar más cambios, no dudes en decírmelo.
 
@@ -21,9 +27,9 @@ El volumen se ha ajustado correctamente. Si deseas realizar más cambios, no dud
 def body_mensaje_cambiar_brillo():
     """Mensaje de confirmación para ajustar el brillo"""
     return f"""
-💡 *Brillo Ajustado al {sistema.obtener_brillo()}* 💡
+💡 *Brillo Ajustado al {obtener_brillo()}%* 💡
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 El brillo se ha ajustado correctamente. Si necesitas hacer más ajustes, aquí estoy para ayudar.
 
@@ -34,11 +40,11 @@ El brillo se ha ajustado correctamente. Si necesitas hacer más ajustes, aquí e
 def body_mensaje_volumen():
     """Mensaje para mostrar el volumen actual"""
     return f"""
-🔊 *Volumen Actual: {sistema.obtener_volumen()}%* 🔊
+🔊 *Volumen Actual: {obtener_volumen()}%* 🔊
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
-El volumen actual es {sistema.obtener_volumen()}. Si deseas realizar algún cambio, házmelo saber.
+El volumen actual es {obtener_volumen()}. Si deseas realizar algún cambio, házmelo saber.
 
 *Gracias por usar el sistema.*
 """
@@ -48,11 +54,11 @@ def body_mensaje_brillo():
     """Mensaje para mostrar el brillo actual"""
     return (
         f"""
-💡 *Brillo Actual: {sistema.obtener_brillo()}%* 💡
+💡 *Brillo Actual: {obtener_brillo()}%* 💡
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
-El brillo actual es {sistema.obtener_brillo()}. Si necesitas realizar algún ajuste, aquí estoy """
+El brillo actual es {obtener_brillo()}. Si necesitas realizar algún ajuste, aquí estoy """
         + """para ayudar.
 
 *Gracias por usar el sistema.*
@@ -74,7 +80,7 @@ def body_mensaje_comando_consola(comando):
         f"""
 🖥️⚙️ *Ejecutando Comando en Consola* ⚙️🖥️
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 El comando `{comando}` se está ejecutando en la consola de Windows. Por favor, espera un momento"""
         + """mientras procesamos tu solicitud.
@@ -92,11 +98,11 @@ def body_mensaje_cargado():
     """
     return (
         f"""
-🔋✨ ¡Portátil al *{sistema.obtener_porcentaje_bateria()}%* de batería! 🌟
+🔋✨ ¡Portátil al *{obtener_porcentaje_bateria()}%* de batería! 🌟
 
 😁✨💻🔋
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Quería informarte que tu portátil está completamente cargado y listo para desconectar. 🚀 Es """
         + """increíble lo eficiente que es este dispositivo. ¡Estoy emocionado de usarlo al """
@@ -119,10 +125,10 @@ def body_mensaje_descargado():
 
 😟🔋💻⚠️
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
-Quería informar que la batería de tu portátil está al *{sistema.obtener_porcentaje_bateria()}%*."""
-        + f""" 🔋 Tiempo restante estimado: *{sistema.obtener_tiempo_restante_bateria()}*. Por"""
+Quería informar que la batería de tu portátil está al *{obtener_porcentaje_bateria()}%*."""
+        + f""" 🔋 Tiempo restante estimado: *{obtener_tiempo_restante_bateria()}*. Por"""
         + """ favor, conéctalo al cargador pronto para evitar interrupciones. 🙏
 
 *Gracias por tu atención.*
@@ -138,14 +144,14 @@ def body_mensaje_porcentaje():
     """
     return (
         f"""
-🔋⚡ *Estado de la Batería: {sistema.obtener_porcentaje_bateria()}%, """
-        + f"""{sistema.obtener_estado_bateria()}* 🔍
+🔋⚡ *Estado de la Batería: {obtener_porcentaje_bateria()}%, """
+        + f"""{obtener_estado_bateria()}* 🔍
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Solo quería informarte sobre el estado actual de la batería de tu portátil. Estamos al """
-        + f"""*{sistema.obtener_porcentaje_bateria()}%*, con un tiempo restante estimado de """
-        + f"""*{sistema.obtener_tiempo_restante_bateria()}*. ¡Sigue así y mantén tu productividad"""
+        + f"""*{obtener_porcentaje_bateria()}%*, con un tiempo restante estimado de """
+        + f"""*{obtener_tiempo_restante_bateria()}*. ¡Sigue así y mantén tu productividad"""
         + """ en alto! 💪
 
 *Gracias por tu atención.*
@@ -162,11 +168,11 @@ def body_mensaje_estado():
 
     return (
         f"""
-💻📊 *Estado Actual del Portátil: {sistema.obtener_estado_bateria()}* 🛡️
+💻📊 *Estado Actual del Portátil: {obtener_estado_bateria()}* 🛡️
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
-Te quería informar sobre el estado actual de tu portátil: *{sistema.obtener_estado_bateria()}*."""
+Te quería informar sobre el estado actual de tu portátil: *{obtener_estado_bateria()}*."""
         + """ Es importante tener esto en cuenta para evitar cualquier inconveniente.
 
 *Gracias por tu atención.*
@@ -187,7 +193,7 @@ def body_mensaje_desconocido():
 
 🤔📩💻❓
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Parece que hemos recibido un mensaje que no logramos entender o procesar correctamente. 😅 """
         + """Por favor, revisa el contenido y vuelve a intentarlo.
@@ -208,7 +214,7 @@ def body_mensaje_ayuda():
     return f"""
 💡📘 *Ayuda y Soporte* 📘💡
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Parece que necesitas un poco de ayuda. Aquí tienes algunos comandos que puedes utilizar:
 
@@ -252,7 +258,7 @@ def body_mensaje_activar_notificaciones():
         f"""
 🔔✅ *¡Notificaciones Activadas!* ✅🔔
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Las alertas de batería han sido activadas exitosamente. A partir de ahora, recibirás """
         + """notificaciones sobre el estado y el porcentaje de tu batería.
@@ -273,7 +279,7 @@ def body_mensaje_desactivar_notificaciones():
         f"""
 🔕❌ *¡Notificaciones Desactivadas!* ❌🔕
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Las alertas de batería han sido desactivadas. Ya no recibirás notificaciones sobre el estado y el"""
         + """ porcentaje de tu batería.
@@ -289,7 +295,7 @@ def body_mensaje_apagar():
         f"""
 🖥️⚠️ *¡Apagando el PC!* ⚠️🖥️
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Tu computadora se está apagando ahora mismo. Asegúrate de guardar cualquier trabajo pendiente """
         + """antes de que se complete el proceso.
@@ -305,7 +311,7 @@ def body_mensaje_reiniciar():
         f"""
 🔄🖥️ *¡Reiniciando el PC!* 🖥️🔄
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Tu computadora está reiniciándose en este momento. Esto solo tomará un momento. Volverá pronto a """
         + """estar disponible.
@@ -327,7 +333,7 @@ def body_mensaje_lista_comandos(lista_archivos):
     return f"""
 📂📋 *Lista de Comandos Personalizados* 📋📂
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Aquí tienes la lista de los comandos personalizados:
 
@@ -347,7 +353,7 @@ def body_mensaje_suspender():
         f"""
 💤💻 *¡El PC se va a suspender pronto!* 💻💤
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Tu computadora está a punto de suspenderse para ahorrar energía. Por favor, guarda tu trabajo"""
         + """ para evitar cualquier pérdida de datos.
@@ -367,7 +373,7 @@ def body_mensaje_bienvenida():
         f"""
 👋✨ *¡Bienvenido a _Admin Pc_!* ✨👋
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Nos alegra tenerte con nosotros. Esta aplicación está lista para ayudarte con el manejo y """
         + """monitoreo de tu PC. Si necesitas ayuda, no dudes en preguntar.
@@ -386,7 +392,7 @@ def body_mensaje_bloquear():
     return f"""
 🔒💻 *¡PC Bloqueado!* 💻🔒
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Tu computadora ha sido bloqueada con éxito. Por favor, asegúrate de que tu sesión esté segura.
 

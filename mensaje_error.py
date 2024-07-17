@@ -1,6 +1,7 @@
 """Modulo para mostrar los mensajes de error posibles al ejecutar una función dada"""
+# cSpell:ignore dotenv
 
-import sistema
+from user_data import NOMBRE_ENV
 
 
 def body_mensaje_error_porcentaje():
@@ -8,7 +9,7 @@ def body_mensaje_error_porcentaje():
     return f"""
 ❌⚠️ *Error al establecer el porcentaje!* ⚠️❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar establecer el porcentaje. Por favor, verifica los valores y vuelve a intentarlo. 
 Si el problema persiste, contacta con soporte técnico.
@@ -22,7 +23,7 @@ def body_mensaje_error_estado():
     return f"""
 ❌⚠️ *Error al cambiar el estado!* ⚠️❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar cambiar el estado. Por favor, revisa la configuración y vuelve a intentarlo. 
 Si el problema persiste, contacta con soporte técnico.
@@ -36,7 +37,7 @@ def body_mensaje_error_desactivar_notificaciones():
     return f"""
 ❌🔕 *Error al desactivar notificaciones!* 🔕❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar desactivar las notificaciones. Por favor, inténtalo de nuevo o consulta con soporte técnico.
 
@@ -49,7 +50,7 @@ def body_mensaje_error_activar_notificaciones():
     return f"""
 ❌🔔 *Error al activar notificaciones!* 🔔❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar activar las notificaciones. Por favor, verifica la configuración y vuelve a intentarlo.
 
@@ -62,7 +63,7 @@ def body_mensaje_error_lista_comandos():
     return f"""
 ❌📜 *Error al obtener la lista de comandos!* 📜❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar acceder a la lista de comandos. Por favor, revisa la conexión y vuelve a intentarlo.
 
@@ -76,7 +77,7 @@ def body_mensaje_error_apagar():
         f"""
 ❌⚠️ *Error al apagar el PC!* ⚠️❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar apagar tu computadora. Por favor, inténtalo de nuevo o consulta con"""
         + """ soporte técnico si el problema persiste.
@@ -92,7 +93,7 @@ def body_mensaje_error_reiniciar():
         f"""
 ❌🔄 *Error al reiniciar el PC!* 🔄❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar reiniciar tu computadora. Por favor, verifica la situación o """
         + """contacta con soporte técnico para obtener ayuda.
@@ -115,7 +116,7 @@ def body_mensaje_error_comando_consola(error):
         f"""
 ❌⚠️ *Error al Ejecutar Comando* ⚠️❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar ejecutar el comando en la consola de Windows. El error es el siguiente:
         
@@ -139,7 +140,7 @@ def body_mensaje_error_suspender():
         f"""
 ❌💤 *Error al suspender el PC!* 💤❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar suspender tu computadora. Por favor, inténtalo de nuevo o contacta"""
         + """ con soporte técnico si el problema persiste.
@@ -159,7 +160,7 @@ def body_mensaje_error_bloquear():
         f"""
 ❌🔒 *Error al bloquear el PC!* 🔒❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar bloquear tu computadora. Por favor, inténtalo de nuevo o consulta """
         + """con soporte técnico si el problema persiste.
@@ -174,7 +175,7 @@ def body_mensaje_error_volumen():
     return f"""
 ❌🔊 *Error al ajustar el volumen!* 🔊❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar ajustar el volumen. Por favor, verifica la configuración y vuelve a intentarlo.
 
@@ -187,7 +188,7 @@ def body_mensaje_error_brillo():
     return f"""
 ❌💡 *Error al ajustar el brillo!* 💡❌
 
-¡Hola *{sistema.NOMBRE_USUARIO}*!
+¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar ajustar el brillo. Por favor, revisa la configuración y vuelve a intentarlo.
 
