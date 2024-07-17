@@ -2,22 +2,30 @@
 
 # cSpell:ignore twilio whatsapp bateria dotenv proyects
 import os
+from tkinter import messagebox
+import dotenv_path  # pylint: disable=unused-import  # noqa: F401
 
-from dotenv import load_dotenv
 from twilio.rest import Client
-
-# Carga las variables de entorno del archivo .env
-load_dotenv(
-    "C:/Users/tutaa/Workspace/Python/Proyects/Administrar pc/resources/env/.env"
-)
-
 
 SID = os.getenv("SID")
 AUTH_TOKEN = os.getenv("AUTH_TOKEN")
-client = Client(SID, AUTH_TOKEN)
-
 FROM_WHATSAPP_NUMBER = os.getenv("FROM_WHATSAPP_NUMBER")
 TO_WHATSAPP_NUMBER = os.getenv("TO_WHATSAPP_NUMBER")
+
+
+def conectar_cliente():
+    """Se establece conexión con el servidor de twilio
+
+    Return: Objeto con la conexión del servidor de twilio
+    """
+    try:
+        return Client(SID, AUTH_TOKEN)
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        messagebox.showerror("ERROR AL CONECTARSE CON EL SERVIDOR", str(e))
+        return None
+
+
+client = conectar_cliente()
 
 
 def obtener_hora_ultimo_mensaje():
@@ -26,12 +34,16 @@ def obtener_hora_ultimo_mensaje():
     Returns:
         str: fecha ultimo mensaje
     """
-    messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER)
-    if messages:
-        last_message = messages[0]
-        if last_message.from_ == TO_WHATSAPP_NUMBER:
-            return last_message.date_sent
-    return ""
+    try:
+        messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER)
+        if messages:
+            last_message = messages[0]
+            if last_message.from_ == TO_WHATSAPP_NUMBER:
+                return last_message.date_sent
+        return ""
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        messagebox.showerror("ERROR AL OBTENER HORA DEL ULTIMO MENSAJE", str(e))
+        return ""
 
 
 def obtener_ultimo_mensaje():
@@ -42,12 +54,16 @@ def obtener_ultimo_mensaje():
     """
     messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER)
 
-    if messages:
-        last_message = messages[0]
-        if last_message.from_ == TO_WHATSAPP_NUMBER:
-            return last_message.body.lower()
+    try:
+        if messages:
+            last_message = messages[0]
+            if last_message.from_ == TO_WHATSAPP_NUMBER:
+                return last_message.body.lower()
+            return ""
         return ""
-    return ""
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        messagebox.showerror("ERROR AL OBTENER ULTIMO MENSAJE", str(e))
+        return ""
 
 
 def enviar_mensaje(mensaje):
@@ -56,6 +72,9 @@ def enviar_mensaje(mensaje):
     Args:
         mensaje (str): cuerpo del mensaje a enviar con Twilio a WhatsApp
     """
-    client.messages.create(
-        body=mensaje, from_=FROM_WHATSAPP_NUMBER, to=TO_WHATSAPP_NUMBER
-    )
+    try:
+        client.messages.create(
+            body=mensaje, from_=FROM_WHATSAPP_NUMBER, to=TO_WHATSAPP_NUMBER
+        )
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        messagebox.showerror("ERROR AL ENVIAR MENSAJE", str(e))

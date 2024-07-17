@@ -19,6 +19,6 @@ def obtener_lista_archivos(ruta):
     texto_lista_archivos = ""
     archivos = os.listdir(ruta)
     for i in archivos:
-        texto_lista_archivos += f"`{i.replace('.bat', '').capitalize()}`\n"
+        texto_lista_archivos += f"`{i.replace('.bat', '')}`\n"
 
     return texto_lista_archivos
