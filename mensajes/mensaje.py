@@ -1,20 +1,13 @@
 """Modulo para acceder a todos los mensajes por defecto para enviar con Twilio"""
-
 # cSpell:ignore bateria conéctalo activacion desactivacion dotenv
-from sistema import (
-    obtener_brillo,
-    obtener_estado_bateria,
-    obtener_porcentaje_bateria,
-    obtener_tiempo_restante_bateria,
-    obtener_volumen,
-)
-from user_data import NOMBRE_ENV
+
+from data.user_data import NOMBRE_ENV
 
 
-def body_mensaje_cambiar_volumen():
+def body_mensaje_cambiar_volumen(volumen):
     """Mensaje de confirmación para ajustar el volumen"""
     return f"""
-🔊 *Volumen Ajustado al {obtener_volumen()}%* 🔊
+🔊 *Volumen Ajustado al {volumen}%* 🔊
 
 ¡Hola *{NOMBRE_ENV}*!
 
@@ -24,10 +17,10 @@ El volumen se ha ajustado correctamente. Si deseas realizar más cambios, no dud
 """
 
 
-def body_mensaje_cambiar_brillo():
+def body_mensaje_cambiar_brillo(brillo):
     """Mensaje de confirmación para ajustar el brillo"""
     return f"""
-💡 *Brillo Ajustado al {obtener_brillo()}%* 💡
+💡 *Brillo Ajustado al {brillo}%* 💡
 
 ¡Hola *{NOMBRE_ENV}*!
 
@@ -37,28 +30,28 @@ El brillo se ha ajustado correctamente. Si necesitas hacer más ajustes, aquí e
 """
 
 
-def body_mensaje_volumen():
+def body_mensaje_volumen(volumen):
     """Mensaje para mostrar el volumen actual"""
     return f"""
-🔊 *Volumen Actual: {obtener_volumen()}%* 🔊
+🔊 *Volumen Actual: {volumen}%* 🔊
 
 ¡Hola *{NOMBRE_ENV}*!
 
-El volumen actual es {obtener_volumen()}. Si deseas realizar algún cambio, házmelo saber.
+El volumen actual es {volumen}. Si deseas realizar algún cambio, házmelo saber.
 
 *Gracias por usar el sistema.*
 """
 
 
-def body_mensaje_brillo():
+def body_mensaje_brillo(brillo):
     """Mensaje para mostrar el brillo actual"""
     return (
         f"""
-💡 *Brillo Actual: {obtener_brillo()}%* 💡
+💡 *Brillo Actual: {brillo}%* 💡
 
 ¡Hola *{NOMBRE_ENV}*!
 
-El brillo actual es {obtener_brillo()}. Si necesitas realizar algún ajuste, aquí estoy """
+El brillo actual es {brillo}. Si necesitas realizar algún ajuste, aquí estoy """
         + """para ayudar.
 
 *Gracias por usar el sistema.*
@@ -90,7 +83,7 @@ El comando `{comando}` se está ejecutando en la consola de Windows. Por favor, 
     )
 
 
-def body_mensaje_cargado():
+def body_mensaje_cargado(porcentaje_bateria):
     """Se devuelve el mensaje para cuando la bateria este al 100% de carga
 
     Returns:
@@ -98,7 +91,7 @@ def body_mensaje_cargado():
     """
     return (
         f"""
-🔋✨ ¡Portátil al *{obtener_porcentaje_bateria()}%* de batería! 🌟
+🔋✨ ¡Portátil al *{porcentaje_bateria}%* de batería! 🌟
 
 😁✨💻🔋
 
@@ -113,7 +106,7 @@ Quería informarte que tu portátil está completamente cargado y listo para des
     )
 
 
-def body_mensaje_descargado():
+def body_mensaje_descargado(porcentaje_bateria, tiempo_restante_bateria):
     """Se devuelve el mensaje para cuando la bateria este en menos de 25% de carga
 
     Returns:
@@ -127,8 +120,8 @@ def body_mensaje_descargado():
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Quería informar que la batería de tu portátil está al *{obtener_porcentaje_bateria()}%*."""
-        + f""" 🔋 Tiempo restante estimado: *{obtener_tiempo_restante_bateria()}*. Por"""
+Quería informar que la batería de tu portátil está al *{porcentaje_bateria}%*."""
+        + f""" 🔋 Tiempo restante estimado: *{tiempo_restante_bateria}*. Por"""
         + """ favor, conéctalo al cargador pronto para evitar interrupciones. 🙏
 
 *Gracias por tu atención.*
@@ -136,7 +129,9 @@ Quería informar que la batería de tu portátil está al *{obtener_porcentaje_b
     )
 
 
-def body_mensaje_porcentaje():
+def body_mensaje_porcentaje(
+    porcentaje_bateria, estado_bateria, tiempo_restante_bateria
+):
     """Se devuelve el mensaje para cuando la bateria este en menos de 25% de carga
 
     Returns:
@@ -144,14 +139,14 @@ def body_mensaje_porcentaje():
     """
     return (
         f"""
-🔋⚡ *Estado de la Batería: {obtener_porcentaje_bateria()}%, """
-        + f"""{obtener_estado_bateria()}* 🔍
+🔋⚡ *Estado de la Batería: {porcentaje_bateria}%, """
+        + f"""{estado_bateria}* 🔍
 
 ¡Hola *{NOMBRE_ENV}*!
 
 Solo quería informarte sobre el estado actual de la batería de tu portátil. Estamos al """
-        + f"""*{obtener_porcentaje_bateria()}%*, con un tiempo restante estimado de """
-        + f"""*{obtener_tiempo_restante_bateria()}*. ¡Sigue así y mantén tu productividad"""
+        + f"""*{porcentaje_bateria}%*, con un tiempo restante estimado de """
+        + f"""*{tiempo_restante_bateria}*. ¡Sigue así y mantén tu productividad"""
         + """ en alto! 💪
 
 *Gracias por tu atención.*
@@ -159,7 +154,7 @@ Solo quería informarte sobre el estado actual de la batería de tu portátil. E
     )
 
 
-def body_mensaje_estado():
+def body_mensaje_estado(estado_bateria):
     """Se devuelve el mensaje informando si la bateria está conectado o desconectado
 
     Returns:
@@ -168,11 +163,11 @@ def body_mensaje_estado():
 
     return (
         f"""
-💻📊 *Estado Actual del Portátil: {obtener_estado_bateria()}* 🛡️
+💻📊 *Estado Actual del Portátil: {estado_bateria}* 🛡️
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Te quería informar sobre el estado actual de tu portátil: *{obtener_estado_bateria()}*."""
+Te quería informar sobre el estado actual de tu portátil: *{estado_bateria}*."""
         + """ Es importante tener esto en cuenta para evitar cualquier inconveniente.
 
 *Gracias por tu atención.*

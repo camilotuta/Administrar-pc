@@ -1,7 +1,7 @@
 """Modulo para mostrar los mensajes de error posibles al ejecutar una función dada"""
 # cSpell:ignore dotenv
 
-from user_data import NOMBRE_ENV
+from data.user_data import NOMBRE_ENV
 
 
 def body_mensaje_error_porcentaje():

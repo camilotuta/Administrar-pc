@@ -1,6 +1,6 @@
 """Módulo para obtener información sobre directorios específicos"""
 
-import os
+from os import listdir
 
 RUTA_SCRIPTS = "C:\\Users\\tutaa\\scripts"
 
@@ -17,7 +17,7 @@ def obtener_lista_archivos(ruta):
               extensión ".bat" eliminada. Cada nombre de archivo está en una nueva línea.
     """
     texto_lista_archivos = ""
-    archivos = os.listdir(ruta)
+    archivos = listdir(ruta)
     for i in archivos:
         texto_lista_archivos += f"`{i.replace('.bat', '')}`\n"
 

@@ -1,38 +1,39 @@
 """Modulo principal del programa donde se verifica cada acción del usuario para enviar un reporte
 del estado de la bateria del portátil"""
-
 # cSpell:ignore bateria whatsapp activacion desactivacion automatica
-from mensaje import (
-    body_mensaje_bienvenida,
-    body_mensaje_cargado,
-    body_mensaje_descargado,
-    body_mensaje_desconocido,
+
+from funciones import opciones
+from funciones.ejecutar_funciones import (
+    bateria_cargada,
+    bateria_descargada,
+    mensaje_bienvenida,
+    mensaje_desconocido,
 )
-from mensaje_whatsapp import (
-    enviar_mensaje,
-    obtener_hora_ultimo_mensaje,
-    obtener_ultimo_mensaje,
+from funciones.funciones_bateria import (
+    bateria_esta_cargando,
+    obtener_porcentaje_bateria,
 )
-from opciones import (
-    ENVIAR_ALERTA_AUTOMATICA,
+from funciones.opciones import (
     FUNCIONES_BATERIA,
     FUNCIONES_CONSOLA,
     FUNCIONES_CONTROL,
     FUNCIONES_SISTEMA,
     FUNCIONES_SOPORTE,
+    PROGRAMA_ACTIVO,
 )
-from sistema import bateria_esta_cargando, obtener_porcentaje_bateria
-from texto import (
-    quitar_acentos,
-    verificar_llave_diccionario_en_string,
+
+from interactuar.texto import quitar_acentos, verificar_llave_diccionario_en_string
+from mensajes.mensaje_whatsapp import (
+    obtener_hora_ultimo_mensaje,
+    obtener_ultimo_mensaje,
 )
 
 if __name__ == "__main__":
-    enviar_mensaje(body_mensaje_bienvenida())
+    mensaje_bienvenida()
 
     bateria_pasada = obtener_porcentaje_bateria()
     hora_mensaje_pasado = obtener_hora_ultimo_mensaje()
-    while True:
+    while PROGRAMA_ACTIVO:
         if (
             obtener_porcentaje_bateria() != bateria_pasada
             and not bateria_esta_cargando()
@@ -40,18 +41,18 @@ if __name__ == "__main__":
             if (
                 obtener_porcentaje_bateria() < 26
                 and obtener_porcentaje_bateria() % 5 == 0
-                and ENVIAR_ALERTA_AUTOMATICA
+                and opciones.ENVIAR_ALERTA_AUTOMATICA
             ):
-                enviar_mensaje(body_mensaje_descargado())
+                bateria_descargada()
             bateria_pasada = obtener_porcentaje_bateria()
 
         if (
             obtener_porcentaje_bateria() != bateria_pasada
             and obtener_porcentaje_bateria() == 100
             and bateria_esta_cargando()
-            and ENVIAR_ALERTA_AUTOMATICA
+            and opciones.ENVIAR_ALERTA_AUTOMATICA
         ):
-            enviar_mensaje(body_mensaje_cargado())
+            bateria_cargada()
             bateria_pasada = obtener_porcentaje_bateria()
 
         if obtener_hora_ultimo_mensaje() != hora_mensaje_pasado:
@@ -107,6 +108,6 @@ if __name__ == "__main__":
             ):
                 FUNCIONES_SOPORTE[(quitar_acentos(obtener_ultimo_mensaje().lower()))]()
             else:
-                enviar_mensaje(body_mensaje_desconocido())
+                mensaje_desconocido()
 
             hora_mensaje_pasado = obtener_hora_ultimo_mensaje()

@@ -3,7 +3,7 @@
 
 import os
 
-import dotenv_path  # pylint: disable=unused-import  # noqa: F401
+import data.dotenv_path  # pylint: disable=unused-import  # noqa: F401
 
 NOMBRE_ENV = os.getenv("USER_NAME")
 CORREO_ENV = os.getenv("USER_EMAIL")

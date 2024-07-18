@@ -1,6 +1,6 @@
 """Módulo para interactuar con cadenas de texto"""
 
-import unicodedata
+from unicodedata import category, normalize
 
 
 def quitar_acentos(texto):
@@ -12,10 +12,8 @@ def quitar_acentos(texto):
     Returns:
         str: La cadena de texto sin acentos.
     """
-    texto_normalizado = unicodedata.normalize("NFD", texto)
-    texto_sin_acentos = "".join(
-        c for c in texto_normalizado if unicodedata.category(c) != "Mn"
-    )
+    texto_normalizado = normalize("NFD", texto)
+    texto_sin_acentos = "".join(c for c in texto_normalizado if category(c) != "Mn")
     return texto_sin_acentos
 
 

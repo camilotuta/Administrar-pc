@@ -1,20 +1,16 @@
 """Módulo para administrar los mensajes de WhatsApp por Twilio"""
-
 # cSpell:ignore twilio whatsapp bateria dotenv proyects
+
 from tkinter import messagebox
 
 from twilio.rest import Client
-from user_data import (
+
+from data.user_data import (
     AUTH_TOKEN_ENV,
     FROM_WHATSAPP_NUMBER_ENV,
     SID_ENV,
     TO_WHATSAPP_NUMBER_ENV,
 )
-
-SID = SID_ENV
-AUTH_TOKEN = AUTH_TOKEN_ENV
-FROM_WHATSAPP_NUMBER = FROM_WHATSAPP_NUMBER_ENV
-TO_WHATSAPP_NUMBER = TO_WHATSAPP_NUMBER_ENV
 
 
 def conectar_cliente():
@@ -23,7 +19,7 @@ def conectar_cliente():
     Return: Objeto con la conexión del servidor de twilio
     """
     try:
-        return Client(SID, AUTH_TOKEN)
+        return Client(SID_ENV, AUTH_TOKEN_ENV)
     except Exception as e:  # pylint: disable=broad-exception-caught
         messagebox.showerror("ERROR AL CONECTARSE CON EL SERVIDOR", str(e))
         return None
@@ -39,10 +35,10 @@ def obtener_hora_ultimo_mensaje():
         str: fecha ultimo mensaje
     """
     try:
-        messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER)
+        messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER_ENV)
         if messages:
             last_message = messages[0]
-            if last_message.from_ == TO_WHATSAPP_NUMBER:
+            if last_message.from_ == TO_WHATSAPP_NUMBER_ENV:
                 return last_message.date_sent
         return ""
     except Exception as e:  # pylint: disable=broad-exception-caught
@@ -56,12 +52,12 @@ def obtener_ultimo_mensaje():
     Returns:
         str: ultimo mensaje del chat de WhatsApp
     """
-    messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER)
+    messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER_ENV)
 
     try:
         if messages:
             last_message = messages[0]
-            if last_message.from_ == TO_WHATSAPP_NUMBER:
+            if last_message.from_ == TO_WHATSAPP_NUMBER_ENV:
                 return last_message.body.lower()
             return ""
         return ""
@@ -78,7 +74,7 @@ def enviar_mensaje(mensaje):
     """
     try:
         client.messages.create(
-            body=mensaje, from_=FROM_WHATSAPP_NUMBER, to=TO_WHATSAPP_NUMBER
+            body=mensaje, from_=FROM_WHATSAPP_NUMBER_ENV, to=TO_WHATSAPP_NUMBER_ENV
         )
     except Exception as e:  # pylint: disable=broad-exception-caught
         messagebox.showerror("ERROR AL ENVIAR MENSAJE", str(e))

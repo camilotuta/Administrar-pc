@@ -1,8 +1,7 @@
 """Modulo para acceder a datos de las funciones de la aplicacion"""
-
 # cSpell:ignore aplicacion bateria automatica activacion desactivacion
 
-from ejecutar import (
+from funciones.ejecutar_funciones import (
     activar,
     apagar,
     ayuda,
@@ -20,6 +19,7 @@ from ejecutar import (
     suspender,
 )
 
+PROGRAMA_ACTIVO = True
 ENVIAR_ALERTA_AUTOMATICA = True
 FUNCIONES_BATERIA = {
     "bateria": bateria,

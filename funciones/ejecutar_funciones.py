@@ -1,18 +1,44 @@
 """Módulo para ejecutar todas las funciones de la aplicación con sus respectivas excepciones"""
-
 # cSpell:ignore bateria whatsapp
+
 from tkinter import messagebox
 
-from archivo import RUTA_SCRIPTS, obtener_lista_archivos
-from mensaje import (
+from funciones.funciones_bateria import (
+    obtener_estado_bateria,
+    obtener_porcentaje_bateria,
+    obtener_tiempo_restante_bateria,
+)
+from funciones.funciones_consola import ejecutar_consola
+from funciones.funciones_control import (
+    cambiar_brillo,
+    cambiar_volumen,
+    obtener_brillo_actual,
+    obtener_volumen_actual,
+)
+from funciones.funciones_notificaciones import (
+    activar_notificaciones,
+    desactivar_notificaciones,
+)
+from funciones.funciones_sistema import (
+    apagar_pc,
+    bloquear_pc,
+    reiniciar_pc,
+    suspender_pc,
+)
+from interactuar.archivo import RUTA_SCRIPTS, obtener_lista_archivos
+from mensajes.mensaje import (
     body_mensaje_activar_notificaciones,
     body_mensaje_apagar,
     body_mensaje_ayuda,
+    body_mensaje_bienvenida,
     body_mensaje_bloquear,
     body_mensaje_brillo,
     body_mensaje_cambiar_brillo,
     body_mensaje_cambiar_volumen,
+    body_mensaje_cargado,
     body_mensaje_desactivar_notificaciones,
+    body_mensaje_descargado,
+    body_mensaje_desconocido,
     body_mensaje_estado,
     body_mensaje_lista_comandos,
     body_mensaje_porcentaje,
@@ -20,7 +46,7 @@ from mensaje import (
     body_mensaje_suspender,
     body_mensaje_volumen,
 )
-from mensaje_error import (
+from mensajes.mensaje_error import (
     body_mensaje_error_activar_notificaciones,
     body_mensaje_error_apagar,
     body_mensaje_error_bloquear,
@@ -33,16 +59,43 @@ from mensaje_error import (
     body_mensaje_error_suspender,
     body_mensaje_error_volumen,
 )
-from mensaje_whatsapp import enviar_mensaje
-from sistema import (
-    apagar_pc,
-    bloquear_pc,
-    ejecutar_consola,
-    reiniciar_pc,
-    suspender_pc,
-    cambiar_brillo,
-    cambiar_volumen,
-)
+from mensajes.mensaje_whatsapp import enviar_mensaje
+
+
+def mensaje_bienvenida():
+    """Envía el mensaje de Bienvenida"""
+    try:
+        enviar_mensaje(body_mensaje_bienvenida())
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        messagebox.showerror("ERROR AL ENVIAR MENSAJE DE BIENVENIDA", str(e))
+
+
+def mensaje_desconocido():
+    """Envía el mensaje de mensaje desconocido"""
+    try:
+        enviar_mensaje(body_mensaje_desconocido())
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        messagebox.showerror("ERROR AL ENVIAR MENSAJE DESCONOCIDO", str(e))
+
+
+def bateria_descargada():
+    """Envía el mensaje de batería descargada"""
+    try:
+        enviar_mensaje(
+            body_mensaje_descargado(
+                obtener_porcentaje_bateria(), obtener_tiempo_restante_bateria()
+            )
+        )
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        messagebox.showerror("ERROR AL ENVIAR MENSAJE DE BATERÍA DESCARGADA", str(e))
+
+
+def bateria_cargada():
+    """Envía el mensaje de batería cargada"""
+    try:
+        enviar_mensaje(body_mensaje_cargado(obtener_porcentaje_bateria()))
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        messagebox.showerror("ERROR AL ENVIAR MENSAJE DE BATERÍA CARGADA", str(e))
 
 
 def apagar(tiempo):
@@ -56,8 +109,8 @@ def apagar(tiempo):
         través de WhatsApp.
     """
     try:
-        apagar_pc(int(tiempo))
         enviar_mensaje(body_mensaje_apagar())
+        apagar_pc(int(tiempo))
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_apagar())
 
@@ -73,8 +126,8 @@ def reiniciar(tiempo):
         través de WhatsApp.
     """
     try:
-        reiniciar_pc(int(tiempo))
         enviar_mensaje(body_mensaje_reiniciar())
+        reiniciar_pc(int(tiempo))
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_reiniciar())
 
@@ -90,8 +143,8 @@ def suspender(tiempo):
         través de WhatsApp.
     """
     try:
-        suspender_pc(int(tiempo))
         enviar_mensaje(body_mensaje_suspender())
+        suspender_pc(int(tiempo))
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_suspender())
 
@@ -107,8 +160,8 @@ def bloquear(tiempo):
         través de WhatsApp.
     """
     try:
-        bloquear_pc(int(tiempo))
         enviar_mensaje(body_mensaje_bloquear())
+        bloquear_pc(int(tiempo))
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_bloquear())
 
@@ -125,7 +178,7 @@ def cambiar_volumen_pc(nivel):
     """
     try:
         cambiar_volumen(int(nivel))
-        enviar_mensaje(body_mensaje_cambiar_volumen())
+        enviar_mensaje(body_mensaje_cambiar_volumen(obtener_volumen_actual()))
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_volumen())
 
@@ -142,7 +195,7 @@ def cambiar_brillo_pc(nivel):
     """
     try:
         cambiar_brillo(int(nivel))
-        enviar_mensaje(body_mensaje_cambiar_brillo())
+        enviar_mensaje(body_mensaje_cambiar_brillo(obtener_brillo_actual()))
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_brillo())
 
@@ -156,7 +209,7 @@ def obtener_volumen():
     """
 
     try:
-        enviar_mensaje(body_mensaje_volumen())
+        enviar_mensaje(body_mensaje_volumen(obtener_volumen_actual()))
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_volumen())
 
@@ -169,7 +222,7 @@ def obtener_brillo():
         de WhatsApp.
     """
     try:
-        enviar_mensaje(body_mensaje_brillo())
+        enviar_mensaje(body_mensaje_brillo(obtener_volumen_actual()))
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_brillo())
 
@@ -191,7 +244,13 @@ def bateria():
         error a través de WhatsApp.
     """
     try:
-        enviar_mensaje(body_mensaje_porcentaje())
+        enviar_mensaje(
+            body_mensaje_porcentaje(
+                obtener_porcentaje_bateria(),
+                obtener_estado_bateria(),
+                obtener_tiempo_restante_bateria(),
+            )
+        )
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_porcentaje())
 
@@ -204,7 +263,7 @@ def estado():
         error a través de WhatsApp.
     """
     try:
-        enviar_mensaje(body_mensaje_estado())
+        enviar_mensaje(body_mensaje_estado(obtener_estado_bateria()))
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_estado())
 
@@ -217,6 +276,7 @@ def desactivar():
         error a través de WhatsApp.
     """
     try:
+        desactivar_notificaciones()
         enviar_mensaje(body_mensaje_desactivar_notificaciones())
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_desactivar_notificaciones())
@@ -230,6 +290,7 @@ def activar():
         través de WhatsApp.
     """
     try:
+        activar_notificaciones()
         enviar_mensaje(body_mensaje_activar_notificaciones())
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_activar_notificaciones())
