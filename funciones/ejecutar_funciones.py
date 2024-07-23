@@ -1,7 +1,7 @@
 """Módulo para ejecutar todas las funciones de la aplicación con sus respectivas excepciones"""
-# cSpell:ignore bateria whatsapp
+# cSpell:ignore bateria whatsapp ejecucion
 
-from tkinter import messagebox
+import threading
 
 from funciones.funciones_bateria import (
     obtener_estado_bateria,
@@ -60,6 +60,7 @@ from mensajes.mensaje_error import (
     body_mensaje_error_volumen,
 )
 from mensajes.mensaje_whatsapp import enviar_mensaje
+from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
 
 
 def mensaje_bienvenida():
@@ -67,7 +68,9 @@ def mensaje_bienvenida():
     try:
         enviar_mensaje(body_mensaje_bienvenida())
     except Exception as e:  # pylint: disable=broad-exception-caught
-        messagebox.showerror("ERROR AL ENVIAR MENSAJE DE BIENVENIDA", str(e))
+        mostrar_mensaje_sin_detener_ejecucion(
+            "ERROR AL ENVIAR MENSAJE DE BIENVENIDA", str(e)
+        )
 
 
 def mensaje_desconocido():
@@ -75,7 +78,9 @@ def mensaje_desconocido():
     try:
         enviar_mensaje(body_mensaje_desconocido())
     except Exception as e:  # pylint: disable=broad-exception-caught
-        messagebox.showerror("ERROR AL ENVIAR MENSAJE DESCONOCIDO", str(e))
+        mostrar_mensaje_sin_detener_ejecucion(
+            "ERROR AL ENVIAR MENSAJE DESCONOCIDO", str(e)
+        )
 
 
 def bateria_descargada():
@@ -87,7 +92,9 @@ def bateria_descargada():
             )
         )
     except Exception as e:  # pylint: disable=broad-exception-caught
-        messagebox.showerror("ERROR AL ENVIAR MENSAJE DE BATERÍA DESCARGADA", str(e))
+        mostrar_mensaje_sin_detener_ejecucion(
+            "ERROR AL ENVIAR MENSAJE DE BATERÍA DESCARGADA", str(e)
+        )
 
 
 def bateria_cargada():
@@ -95,7 +102,9 @@ def bateria_cargada():
     try:
         enviar_mensaje(body_mensaje_cargado(obtener_porcentaje_bateria()))
     except Exception as e:  # pylint: disable=broad-exception-caught
-        messagebox.showerror("ERROR AL ENVIAR MENSAJE DE BATERÍA CARGADA", str(e))
+        mostrar_mensaje_sin_detener_ejecucion(
+            "ERROR AL ENVIAR MENSAJE DE BATERÍA CARGADA", str(e)
+        )
 
 
 def apagar(tiempo):
@@ -233,6 +242,7 @@ def ejecutar_en_consola(comando):
     Args:
         comando (str): El comando que se ejecutará en la consola.
     """
+
     enviar_mensaje(ejecutar_consola(comando))
 
 
@@ -321,4 +331,6 @@ def ayuda():
     try:
         enviar_mensaje(body_mensaje_ayuda())
     except Exception as e:  # pylint: disable=broad-exception-caught
-        messagebox.showerror("ERROR AL ENVIAR MENSAJE DE AYUDA", str(e))
+        mostrar_mensaje_sin_detener_ejecucion(
+            "ERROR AL ENVIAR MENSAJE DE AYUDA", str(e)
+        )

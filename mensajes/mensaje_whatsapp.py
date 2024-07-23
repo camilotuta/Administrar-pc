@@ -1,7 +1,8 @@
 """Módulo para administrar los mensajes de WhatsApp por Twilio"""
-# cSpell:ignore twilio whatsapp bateria dotenv proyects
+# cSpell:ignore twilio whatsapp bateria dotenv proyects ejecucion peticion
 
-from tkinter import messagebox
+from threading import Thread
+from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
 
 from twilio.rest import Client
 
@@ -21,7 +22,9 @@ def conectar_cliente():
     try:
         return Client(SID_ENV, AUTH_TOKEN_ENV)
     except Exception as e:  # pylint: disable=broad-exception-caught
-        messagebox.showerror("ERROR AL CONECTARSE CON EL SERVIDOR", str(e))
+        mostrar_mensaje_sin_detener_ejecucion(
+            "ERROR AL CONECTARSE CON EL SERVIDOR", str(e)
+        )
         return None
 
 
@@ -42,7 +45,9 @@ def obtener_hora_ultimo_mensaje():
                 return last_message.date_sent
         return ""
     except Exception as e:  # pylint: disable=broad-exception-caught
-        messagebox.showerror("ERROR AL OBTENER HORA DEL ULTIMO MENSAJE", str(e))
+        mostrar_mensaje_sin_detener_ejecucion(
+            "ERROR AL OBTENER HORA DEL ULTIMO MENSAJE", str(e)
+        )
         return ""
 
 
@@ -62,7 +67,7 @@ def obtener_ultimo_mensaje():
             return ""
         return ""
     except Exception as e:  # pylint: disable=broad-exception-caught
-        messagebox.showerror("ERROR AL OBTENER ULTIMO MENSAJE", str(e))
+        mostrar_mensaje_sin_detener_ejecucion("ERROR AL OBTENER ULTIMO MENSAJE", str(e))
         return ""
 
 
@@ -72,9 +77,14 @@ def enviar_mensaje(mensaje):
     Args:
         mensaje (str): cuerpo del mensaje a enviar con Twilio a WhatsApp
     """
-    try:
-        client.messages.create(
-            body=mensaje, from_=FROM_WHATSAPP_NUMBER_ENV, to=TO_WHATSAPP_NUMBER_ENV
-        )
-    except Exception as e:  # pylint: disable=broad-exception-caught
-        messagebox.showerror("ERROR AL ENVIAR MENSAJE", str(e))
+
+    def enviar_peticion():
+        try:
+            client.messages.create(
+                body=mensaje, from_=FROM_WHATSAPP_NUMBER_ENV, to=TO_WHATSAPP_NUMBER_ENV
+            )
+        except Exception as e:  # pylint: disable=broad-exception-caught
+            mostrar_mensaje_sin_detener_ejecucion("ERROR AL ENVIAR MENSAJE", str(e))
+
+    peticion_thread = Thread(target=enviar_peticion)
+    peticion_thread.start()

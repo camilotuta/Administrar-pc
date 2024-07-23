@@ -120,7 +120,7 @@ def body_mensaje_error_comando_consola(error):
 
 Hubo un problema al intentar ejecutar el comando en la consola de Windows. El error es el siguiente:
         
-`{str(error).replace("\n","")}`
+`{error}`
 
 Por favor, verifica el comando y vuelve a intentarlo. Si el problema persiste, contacta con """
         + """soporte técnico para obtener ayuda.

@@ -59,7 +59,35 @@ El brillo actual es {brillo}. Si necesitas realizar algún ajuste, aquí estoy "
     )
 
 
-def body_mensaje_comando_consola(comando):
+def body_mensaje_comando_consola_con_resultado(comando, resultado):
+    """Se devuelve el mensaje para cuando se ejecuta un comando en la consola de Windows
+
+    Args:
+        comando (str): El comando a ejecutar
+        resultado (str): El resultado de la ejecución del comando
+
+    Returns:
+        str: Mensaje de ejecución de comando
+    """
+    return (
+        f"""
+🖥️⚙️ *Ejecutando Comando en Consola* ⚙️🖥️
+
+¡Hola *{NOMBRE_ENV}*!
+
+El comando `{comando}` se está ejecutando en la consola de Windows. Por favor, espera un momento"""
+        + f"""mientras procesamos tu solicitud.
+
+Resultado:
+
+`{resultado}`
+
+*Gracias por tu paciencia.*
+"""
+    )
+
+
+def body_mensaje_comando_consola_sin_resultado(comando):
     """Se devuelve el mensaje para cuando se ejecuta un comando en la consola de Windows
 
     Args:
