@@ -1,8 +1,6 @@
 """Módulo para ejecutar todas las funciones de la aplicación con sus respectivas excepciones"""
 # cSpell:ignore bateria whatsapp ejecucion
 
-import threading
-
 from funciones.funciones_bateria import (
     obtener_estado_bateria,
     obtener_porcentaje_bateria,
