@@ -1,8 +1,31 @@
 """Módulo para ejecutar funciones de la bateria, tales como: obtener % bateria, estado de bateria
 tiempo restante de vida de la bateria y si la bateria está cargando"""
-# cSpell:ignore bateria psutil secsleft
+# cSpell:ignore bateria psutil secsleft energysaver esbattthreshold setactive setdcvalueindex
 
-import psutil
+from os import system
+from psutil import sensors_battery, POWER_TIME_UNKNOWN, POWER_TIME_UNLIMITED
+
+
+def activar_ahorro_bateria():
+    """Activa el modo de ahorro de batería
+
+    Configura el sistema para que entre en modo de ahorro de batería
+    Esta configuración se aplica al perfil de energía actual.
+    """
+    system(
+        "powercfg /setdcvalueindex SCHEME_CURRENT SUB_ENERGYSAVER ESBATTTHRESHOLD 100"
+    )
+    system("powercfg /setactive SCHEME_CURRENT")
+
+
+def desactivar_ahorro_bateria():
+    """Desactiva el modo de ahorro de batería
+
+    Configura el sistema para que no entre en modo de ahorro de batería
+    Esta configuración se aplica al perfil de energía actual.
+    """
+    system("powercfg /setdcvalueindex SCHEME_CURRENT SUB_ENERGYSAVER ESBATTTHRESHOLD 0")
+    system("powercfg /setactive SCHEME_CURRENT")
 
 
 def obtener_porcentaje_bateria():
@@ -11,7 +34,7 @@ def obtener_porcentaje_bateria():
     Return: (int) porcentaje bateria actual
     """
 
-    return int(psutil.sensors_battery().percent)
+    return int(sensors_battery().percent)
 
 
 def bateria_esta_cargando():
@@ -19,7 +42,7 @@ def bateria_esta_cargando():
 
     Return: (bool) ¿bateria está cargando?
     """
-    return psutil.sensors_battery().power_plugged
+    return sensors_battery().power_plugged
 
 
 def obtener_tiempo_restante_bateria():
@@ -27,16 +50,16 @@ def obtener_tiempo_restante_bateria():
 
     Return: (str) horas, minutos, segundos de uso de batería
     """
-    battery = psutil.sensors_battery()
+    battery = sensors_battery()
 
     if battery is None:
         return "No se pudo obtener la información de la batería."
 
     secs_left = battery.secsleft
 
-    if secs_left == psutil.POWER_TIME_UNLIMITED:
+    if secs_left == POWER_TIME_UNLIMITED:
         return "Batería con tiempo ilimitado (conectado a corriente)."
-    if secs_left == psutil.POWER_TIME_UNKNOWN:
+    if secs_left == POWER_TIME_UNKNOWN:
         return "Tiempo de batería desconocido."
 
     hours, remainder = divmod(secs_left, 3600)

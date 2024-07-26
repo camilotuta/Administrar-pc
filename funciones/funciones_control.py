@@ -1,9 +1,10 @@
 """Módulo para ejecutar funciones para controlar el volumen y el brillo del pc"""
-# cSpell:ignore clsctx comtypes pycaw
+# cSpell:ignore clsctx comtypes pycaw pyautogui
 
 from ctypes import POINTER, cast
 
 from comtypes import CLSCTX_ALL
+from pyautogui import typewrite
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from screen_brightness_control import get_brightness, set_brightness
 
@@ -53,3 +54,13 @@ def obtener_volumen_actual():
     volume = cast(interface, POINTER(IAudioEndpointVolume))
 
     return int(volume.GetMasterVolumeLevelScalar() * 100)
+
+
+def escribir_con_teclado(texto):
+    """Escribe el texto especificado utilizando el teclado virtual.
+
+    Envía el texto especificado al teclado para que sea escrito tecleando manualmente.
+
+    Args:
+        texto (str): El texto que se desea escribir utilizando el teclado."""
+    typewrite(texto)

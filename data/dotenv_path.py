@@ -1,8 +1,8 @@
 """Módulo para obtener la ruta del archivo .env"""
-# cSpell:ignore dotenv proyects
+# cSpell:ignore dotenv
 
 from dotenv import load_dotenv
 
 load_dotenv(
-    "C:/Users/tutaa/Workspace/Python/Proyects/Administrar pc/resources/env/.env"
+    "C:/Users/tutaa/Workspace/Python/Projects/Administrar pc/resources/env/.env"
 )

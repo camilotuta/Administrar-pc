@@ -2,6 +2,10 @@
 del estado de la bateria del portátil"""
 # cSpell:ignore bateria whatsapp activacion desactivacion automatica
 
+# TODO: crear función para mantener teclas presionadas
+# TODO: crear función para controlar la multimedia de pc, si no hay librería, se puede hacer presionando teclas
+# TODO: colocar nuevas funciones en el mensaje de ayuda
+from Screens.icono_oculto import poner_icono_oculto
 from funciones import opciones
 from funciones.ejecutar_funciones import (
     bateria_cargada,
@@ -29,6 +33,7 @@ from mensajes.mensaje_whatsapp import (
 )
 
 if __name__ == "__main__":
+    poner_icono_oculto()
     mensaje_bienvenida()
 
     bateria_pasada = obtener_porcentaje_bateria()

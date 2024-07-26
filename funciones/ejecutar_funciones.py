@@ -1,15 +1,20 @@
 """Módulo para ejecutar todas las funciones de la aplicación con sus respectivas excepciones"""
-# cSpell:ignore bateria whatsapp ejecucion
+# cSpell:ignore bateria whatsapp ejecucion peticion notis
+
+from threading import Thread
 
 from funciones.funciones_bateria import (
     obtener_estado_bateria,
     obtener_porcentaje_bateria,
     obtener_tiempo_restante_bateria,
+    activar_ahorro_bateria,
+    desactivar_ahorro_bateria,
 )
 from funciones.funciones_consola import ejecutar_consola
 from funciones.funciones_control import (
     cambiar_brillo,
     cambiar_volumen,
+    escribir_con_teclado,
     obtener_brillo_actual,
     obtener_volumen_actual,
 )
@@ -37,25 +42,31 @@ from mensajes.mensaje import (
     body_mensaje_desactivar_notificaciones,
     body_mensaje_descargado,
     body_mensaje_desconocido,
+    body_mensaje_escribir_teclado,
     body_mensaje_estado,
     body_mensaje_lista_comandos,
     body_mensaje_porcentaje,
     body_mensaje_reiniciar,
     body_mensaje_suspender,
     body_mensaje_volumen,
+    body_mensaje_activar_ahorro_bateria,
+    body_mensaje_desactivar_ahorro_bateria,
 )
 from mensajes.mensaje_error import (
+    body_mensaje_error_activar_ahorro_bateria,
     body_mensaje_error_activar_notificaciones,
     body_mensaje_error_apagar,
     body_mensaje_error_bloquear,
     body_mensaje_error_brillo,
     body_mensaje_error_desactivar_notificaciones,
+    body_mensaje_error_escribir_teclado,
     body_mensaje_error_estado,
     body_mensaje_error_lista_comandos,
     body_mensaje_error_porcentaje,
     body_mensaje_error_reiniciar,
     body_mensaje_error_suspender,
     body_mensaje_error_volumen,
+    body_mensaje_error_desactivar_ahorro_bateria,
 )
 from mensajes.mensaje_whatsapp import enviar_mensaje
 from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
@@ -103,6 +114,57 @@ def bateria_cargada():
         mostrar_mensaje_sin_detener_ejecucion(
             "ERROR AL ENVIAR MENSAJE DE BATERÍA CARGADA", str(e)
         )
+
+
+def activar_ahorro():
+    """Activa el modo de ahorro de batería y notifica el éxito o error.
+
+    Envía un mensaje notificando que el modo de ahorro de batería ha sido activado.
+    Si ocurre un error durante la activación, se enviará un mensaje de error.
+
+    Raises:
+        Exception: En caso de error al activar el ahorro de batería, se enviará un mensaje de error.
+    """
+    try:
+        enviar_mensaje(body_mensaje_activar_ahorro_bateria())
+        activar_ahorro_bateria()
+    except Exception:  # pylint: disable=broad-exception-caught
+        enviar_mensaje(body_mensaje_error_activar_ahorro_bateria())
+
+
+def desactivar_ahorro():
+    """Desactiva el modo de ahorro de batería y notifica el éxito o error.
+
+    Envía un mensaje notificando que el modo de ahorro de batería ha sido desactivado.
+    Si ocurre un error durante la desactivación, se enviará un mensaje de error.
+
+    Raises:
+        Exception: En caso de error al desactivar el ahorro, se enviará un mensaje de error.
+    """
+    try:
+        desactivar_ahorro_bateria()
+        enviar_mensaje(body_mensaje_desactivar_ahorro_bateria())
+    except Exception:  # pylint: disable=broad-exception-caught
+        enviar_mensaje(body_mensaje_error_desactivar_ahorro_bateria())
+
+
+def escribir_teclado(texto):
+    """Escribe el texto especificado en el teclado y notifica el éxito o error.
+
+    Envía el texto especificado al teclado y notifica que la operación ha sido exitosa.
+    Si ocurre un error al intentar escribir el texto, se enviará un mensaje de error.
+
+    Args:
+        texto (str): El texto que se desea escribir en el teclado.
+
+    Raises:
+        Exception: En caso de error al escribir el texto, se enviará un mensaje de error.
+    """
+    try:
+        escribir_con_teclado(texto)
+        enviar_mensaje(body_mensaje_escribir_teclado(texto))
+    except Exception:  # pylint: disable=broad-exception-caught
+        enviar_mensaje(body_mensaje_error_escribir_teclado(texto))
 
 
 def apagar(tiempo):
@@ -241,7 +303,11 @@ def ejecutar_en_consola(comando):
         comando (str): El comando que se ejecutará en la consola.
     """
 
-    enviar_mensaje(ejecutar_consola(comando))
+    def enviar_peticion():
+        enviar_mensaje(ejecutar_consola(comando))
+
+    peticion_thread = Thread(target=enviar_peticion)
+    peticion_thread.start()
 
 
 def bateria():
@@ -276,7 +342,7 @@ def estado():
         enviar_mensaje(body_mensaje_error_estado())
 
 
-def desactivar():
+def desactivar_notis():
     """Desactiva las notificaciones y envía un mensaje de confirmación a través de WhatsApp.
 
     Raises:
@@ -290,7 +356,7 @@ def desactivar():
         enviar_mensaje(body_mensaje_error_desactivar_notificaciones())
 
 
-def activar():
+def activar_notis():
     """Activa las notificaciones y envía un mensaje de confirmación a través de WhatsApp.
 
     Raises:

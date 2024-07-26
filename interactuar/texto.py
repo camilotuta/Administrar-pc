@@ -1,6 +1,31 @@
 """Módulo para interactuar con cadenas de texto"""
 
+from re import sub
 from unicodedata import category, normalize
+
+
+def quitar_espacios_antes_palabra(texto):
+    """Elimina los espacios en blanco al inicio de una cadena de texto.
+
+    Args:
+        texto (str): La cadena de texto de la que se quieren eliminar los espacios al inicio.
+
+    Returns:
+        str: La cadena de texto sin los espacios iniciales.
+    """
+    return sub(r"^\s+", "", texto)
+
+
+def quitar_saltos_linea(texto):
+    """Elimina los saltos de línea (\n y \r) de una cadena de texto.
+
+    Args:
+        texto (str): La cadena de texto de la que se quieren eliminar los saltos de línea.
+
+    Returns:
+        str: La cadena de texto sin saltos de línea.
+    """
+    return sub(r"[\n\r]", "", str(texto))
 
 
 def quitar_acentos(texto):

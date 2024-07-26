@@ -45,18 +45,15 @@ El volumen actual es {volumen}. Si deseas realizar algún cambio, házmelo saber
 
 def body_mensaje_brillo(brillo):
     """Mensaje para mostrar el brillo actual"""
-    return (
-        f"""
+    return f"""
 💡 *Brillo Actual: {brillo}%* 💡
 
 ¡Hola *{NOMBRE_ENV}*!
 
-El brillo actual es {brillo}. Si necesitas realizar algún ajuste, aquí estoy """
-        + """para ayudar.
+El brillo actual es {brillo}. Si necesitas realizar algún ajuste, aquí estoy para ayudar.
 
 *Gracias por usar el sistema.*
 """
-    )
 
 
 def body_mensaje_comando_consola_con_resultado(comando, resultado):
@@ -76,7 +73,7 @@ def body_mensaje_comando_consola_con_resultado(comando, resultado):
 ¡Hola *{NOMBRE_ENV}*!
 
 El comando `{comando}` se está ejecutando en la consola de Windows. Por favor, espera un momento"""
-        + f"""mientras procesamos tu solicitud.
+        + f""" mientras procesamos tu solicitud.
 
 Resultado:
 
@@ -104,7 +101,7 @@ def body_mensaje_comando_consola_sin_resultado(comando):
 ¡Hola *{NOMBRE_ENV}*!
 
 El comando `{comando}` se está ejecutando en la consola de Windows. Por favor, espera un momento"""
-        + """mientras procesamos tu solicitud.
+        + """ mientras procesamos tu solicitud.
 
 *Gracias por tu paciencia.*
 """
@@ -117,21 +114,17 @@ def body_mensaje_cargado(porcentaje_bateria):
     Returns:
         str: Mensaje de 100% de bateria
     """
-    return (
-        f"""
+    return f"""
 🔋✨ ¡Portátil al *{porcentaje_bateria}%* de batería! 🌟
 
 😁✨💻🔋
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Quería informarte que tu portátil está completamente cargado y listo para desconectar. 🚀 Es """
-        + """increíble lo eficiente que es este dispositivo. ¡Estoy emocionado de usarlo al """
-        + """máximo! 😎
+Quería informarte que tu portátil está completamente cargado y listo para desconectar. 🚀 Es increíble lo eficiente que es este dispositivo. ¡Estoy emocionado de usarlo al máximo! 😎
 
 *Gracias por tu atención.*
 """
-    )
 
 
 def body_mensaje_descargado(porcentaje_bateria, tiempo_restante_bateria):
@@ -148,9 +141,9 @@ def body_mensaje_descargado(porcentaje_bateria, tiempo_restante_bateria):
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Quería informar que la batería de tu portátil está al *{porcentaje_bateria}%*."""
-        + f""" 🔋 Tiempo restante estimado: *{tiempo_restante_bateria}*. Por"""
-        + """ favor, conéctalo al cargador pronto para evitar interrupciones. 🙏
+Quería informar que la batería de tu portátil está al *{porcentaje_bateria}%*.  🔋 Tiempo"""
+        + f""" restante estimado: *{tiempo_restante_bateria}*. Por favor, conéctalo al cargador """
+        + """pronto para evitar interrupciones. 🙏
 
 *Gracias por tu atención.*
 """
@@ -167,19 +160,43 @@ def body_mensaje_porcentaje(
     """
     return (
         f"""
-🔋⚡ *Estado de la Batería: {porcentaje_bateria}%, """
-        + f"""{estado_bateria}* 🔍
+🔋⚡ *Estado de la Batería: {porcentaje_bateria}%,  {estado_bateria}* 🔍
 
 ¡Hola *{NOMBRE_ENV}*!
 
 Solo quería informarte sobre el estado actual de la batería de tu portátil. Estamos al """
-        + f"""*{porcentaje_bateria}%*, con un tiempo restante estimado de """
-        + f"""*{tiempo_restante_bateria}*. ¡Sigue así y mantén tu productividad"""
-        + """ en alto! 💪
+        + f""" *{porcentaje_bateria}%*, con un tiempo restante estimado de  """
+        + f"""*{tiempo_restante_bateria}*. ¡Sigue así y mantén tu productividad en alto! 💪
 
 *Gracias por tu atención.*
 """
     )
+
+
+def body_mensaje_activar_ahorro_bateria():
+    """Mensaje de éxito al activar el ahorro de batería"""
+    return f"""
+🔋✅ *Ahorro de batería activado!* ✅🔋
+
+¡Hola *{NOMBRE_ENV}*!
+
+El modo de ahorro de batería se ha activado correctamente. Ahora, tu portátil optimizará el consumo de energía para prolongar la duración de la batería.
+
+*Gracias por tu atención.*
+"""
+
+
+def body_mensaje_desactivar_ahorro_bateria():
+    """Mensaje de éxito al desactivar el ahorro de batería"""
+    return f"""
+🔋❎ *Ahorro de batería desactivado!* ❎🔋
+
+¡Hola *{NOMBRE_ENV}*!
+
+El modo de ahorro de batería se ha desactivado correctamente. Ahora, tu portátil funcionará con el consumo de energía normal.
+
+*Gracias por tu atención.*
+"""
 
 
 def body_mensaje_estado(estado_bateria):
@@ -195,8 +212,8 @@ def body_mensaje_estado(estado_bateria):
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Te quería informar sobre el estado actual de tu portátil: *{estado_bateria}*."""
-        + """ Es importante tener esto en cuenta para evitar cualquier inconveniente.
+Te quería informar sobre el estado actual de tu portátil: *{estado_bateria}*. Es importante"""
+        + """ tener esto en cuenta para evitar cualquier inconveniente.
 
 *Gracias por tu atención.*
 """
@@ -210,22 +227,19 @@ def body_mensaje_desconocido():
         str: Mensaje de error al procesar mensaje recibido
     """
 
-    return (
-        f"""
+    return f"""
 ❓🚫 *¡Mensaje Desconocido!* ❓🚫
 
 🤔📩💻❓
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Parece que hemos recibido un mensaje que no logramos entender o procesar correctamente. 😅 """
-        + """Por favor, revisa el contenido y vuelve a intentarlo.
+Parece que hemos recibido un mensaje que no logramos entender o procesar correctamente. 😅 Por favor, revisa el contenido y vuelve a intentarlo.
 
 Puedes escribir el comando `ayuda` si necesitas conocer más opciones.
 
 *Gracias por tu comprensión.*
 """
-    )
 
 
 def body_mensaje_ayuda():
@@ -244,8 +258,10 @@ Parece que necesitas un poco de ayuda. Aquí tienes algunos comandos que puedes 
 🔋 *Funciones de Batería:*
 1️⃣ *Consultar Estado de Batería:* `Estado`
 2️⃣ *Porcentaje de Batería:* `Bateria`
-3️⃣ *Activar Alertas:* `Activar`
-4️⃣ *Desactivar Alertas:* `Desactivar`
+3️⃣ *Activar Alertas:* `Activar Notificaciones`
+4️⃣ *Desactivar Alertas:* `Desactivar Notificaciones`
+5️⃣ *Activar Ahorro de Batería:* `Activar Ahorro`
+6️⃣ *Desactivar Ahorro de Batería:* `Desactivar Ahorro`
 
 💻 *Funciones del Sistema:*
 1️⃣ *Apagar el PC:* `Apagar [minutos]`
@@ -258,6 +274,7 @@ Parece que necesitas un poco de ayuda. Aquí tienes algunos comandos que puedes 
 2️⃣ *Cambiar Volumen:* `Volumen [nivel 0-100]`
 3️⃣ *Obtener Brillo:* `Brillo`
 4️⃣ *Cambiar Brillo:* `Brillo [nivel 0-100]`
+5️⃣ *Escribir Texto:* `Escribir [texto]`
 
 💻 *Funciones de Consola:*
 1️⃣ *Comando en Consola:* `Consola: [comando]`
@@ -265,6 +282,7 @@ Parece que necesitas un poco de ayuda. Aquí tienes algunos comandos que puedes 
 🛠 *Funciones de Soporte:*
 1️⃣ *Comandos Personalizados:* `Lista comandos`
 2️⃣ *Ayuda:* `Ayuda`
+
 
 *Gracias por tu atención y confianza en nosotros.*
 """
@@ -277,18 +295,15 @@ def body_mensaje_activar_notificaciones():
         str: Mensaje de confirmación de activación de notificaciones
     """
 
-    return (
-        f"""
+    return f"""
 🔔✅ *¡Notificaciones Activadas!* ✅🔔
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Las alertas de batería han sido activadas exitosamente. A partir de ahora, recibirás """
-        + """notificaciones sobre el estado y el porcentaje de tu batería.
+Las alertas de batería han sido activadas exitosamente. A partir de ahora, recibirás notificaciones sobre el estado y el porcentaje de tu batería.
 
 *Gracias por utilizar nuestro servicio.*
 """
-    )
 
 
 def body_mensaje_desactivar_notificaciones():
@@ -298,50 +313,41 @@ def body_mensaje_desactivar_notificaciones():
         str: Mensaje de confirmación de desactivación de notificaciones
     """
 
-    return (
-        f"""
+    return f"""
 🔕❌ *¡Notificaciones Desactivadas!* ❌🔕
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Las alertas de batería han sido desactivadas. Ya no recibirás notificaciones sobre el estado y el"""
-        + """ porcentaje de tu batería.
+Las alertas de batería han sido desactivadas. Ya no recibirás notificaciones sobre el estado y el porcentaje de tu batería.
 
 *Gracias por utilizar nuestro servicio.*
 """
-    )
 
 
 def body_mensaje_apagar():
     """Mensaje cuando el PC se está apagando"""
-    return (
-        f"""
+    return f"""
 🖥️⚠️ *¡Apagando el PC!* ⚠️🖥️
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Tu computadora se está apagando ahora mismo. Asegúrate de guardar cualquier trabajo pendiente """
-        + """antes de que se complete el proceso.
+Tu computadora se está apagando ahora mismo. Asegúrate de guardar cualquier trabajo pendiente antes de que se complete el proceso.
 
 *Gracias por tu paciencia.*
 """
-    )
 
 
 def body_mensaje_reiniciar():
     """Mensaje cuando el PC se está reiniciando"""
-    return (
-        f"""
+    return f"""
 🔄🖥️ *¡Reiniciando el PC!* 🖥️🔄
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Tu computadora está reiniciándose en este momento. Esto solo tomará un momento. Volverá pronto a """
-        + """estar disponible.
+Tu computadora está reiniciándose en este momento. Esto solo tomará un momento. Volverá pronto a estar disponible.
 
 *Gracias por tu comprensión.*
 """
-    )
 
 
 def body_mensaje_lista_comandos(lista_archivos):
@@ -372,18 +378,15 @@ def body_mensaje_suspender():
     Returns:
         str: Mensaje de aviso de suspensión
     """
-    return (
-        f"""
+    return f"""
 💤💻 *¡El PC se va a suspender pronto!* 💻💤
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Tu computadora está a punto de suspenderse para ahorrar energía. Por favor, guarda tu trabajo"""
-        + """ para evitar cualquier pérdida de datos.
+Tu computadora está a punto de suspenderse para ahorrar energía. Por favor, guarda tu trabajo para evitar cualquier pérdida de datos.
 
 *Gracias por tu atención.*
 """
-    )
 
 
 def body_mensaje_bienvenida():
@@ -392,18 +395,15 @@ def body_mensaje_bienvenida():
     Returns:
         str: Mensaje de bienvenida
     """
-    return (
-        f"""
+    return f"""
 👋✨ *¡Bienvenido a _Admin Pc_!* ✨👋
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Nos alegra tenerte con nosotros. Esta aplicación está lista para ayudarte con el manejo y """
-        + """monitoreo de tu PC. Si necesitas ayuda, no dudes en preguntar.
+Nos alegra tenerte con nosotros. Esta aplicación está lista para ayudarte con el manejo y monitoreo de tu PC. Si necesitas ayuda, no dudes en preguntar.
 
 *Gracias por confiar en nosotros.*
 """
-    )
 
 
 def body_mensaje_bloquear():
@@ -418,6 +418,21 @@ def body_mensaje_bloquear():
 ¡Hola *{NOMBRE_ENV}*!
 
 Tu computadora ha sido bloqueada con éxito. Por favor, asegúrate de que tu sesión esté segura.
+
+*Gracias por tu atención.*
+"""
+
+
+def body_mensaje_escribir_teclado(texto):
+    """Mensaje de éxito al escribir con el teclado"""
+    return f"""
+⌨️✅ *Texto escrito exitosamente!* ✅⌨️
+
+¡Hola *{NOMBRE_ENV}*!
+
+El siguiente texto ha sido escrito correctamente en el teclado:
+
+`{texto}`
 
 *Gracias por tu atención.*
 """

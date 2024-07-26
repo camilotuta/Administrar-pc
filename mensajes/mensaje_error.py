@@ -1,5 +1,5 @@
 """Modulo para mostrar los mensajes de error posibles al ejecutar una función dada"""
-# cSpell:ignore dotenv
+# cSpell:ignore dotenv bateria
 
 from data.user_data import NOMBRE_ENV
 
@@ -45,6 +45,34 @@ Hubo un problema al intentar desactivar las notificaciones. Por favor, inténtal
 """
 
 
+def body_mensaje_error_activar_ahorro_bateria():
+    """Mensaje de error al activar el ahorro de batería"""
+    return f"""
+❌⚠️ *Error al activar el ahorro de batería!* ⚠️❌
+
+¡Hola *{NOMBRE_ENV}*!
+
+Hubo un problema al intentar activar el ahorro de batería. Por favor, verifica la configuración y vuelve a intentarlo. 
+Si el problema persiste, contacta con soporte técnico.
+
+*Gracias por tu comprensión.*
+"""
+
+
+def body_mensaje_error_desactivar_ahorro_bateria():
+    """Mensaje de error al desactivar el ahorro de batería"""
+    return f"""
+❌⚠️ *Error al desactivar el ahorro de batería!* ⚠️❌
+
+¡Hola *{NOMBRE_ENV}*!
+
+Hubo un problema al intentar desactivar el ahorro de batería. Por favor, verifica la configuración y vuelve a intentarlo. 
+Si el problema persiste, contacta con soporte técnico.
+
+*Gracias por tu comprensión.*
+"""
+
+
 def body_mensaje_error_activar_notificaciones():
     """Mensaje de error al intentar activar notificaciones"""
     return f"""
@@ -73,34 +101,28 @@ Hubo un problema al intentar acceder a la lista de comandos. Por favor, revisa l
 
 def body_mensaje_error_apagar():
     """Mensaje de error al intentar apagar el PC"""
-    return (
-        f"""
+    return f"""
 ❌⚠️ *Error al apagar el PC!* ⚠️❌
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Hubo un problema al intentar apagar tu computadora. Por favor, inténtalo de nuevo o consulta con"""
-        + """ soporte técnico si el problema persiste.
+Hubo un problema al intentar apagar tu computadora. Por favor, inténtalo de nuevo o consulta con soporte técnico si el problema persiste.
 
 *Gracias por tu comprensión.*
 """
-    )
 
 
 def body_mensaje_error_reiniciar():
     """Mensaje de error al intentar reiniciar el PC"""
-    return (
-        f"""
+    return f"""
 ❌🔄 *Error al reiniciar el PC!* 🔄❌
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Hubo un problema al intentar reiniciar tu computadora. Por favor, verifica la situación o """
-        + """contacta con soporte técnico para obtener ayuda.
+Hubo un problema al intentar reiniciar tu computadora. Por favor, verifica la situación o contacta con soporte técnico para obtener ayuda.
 
 *Gracias por tu comprensión.*
 """
-    )
 
 
 def body_mensaje_error_comando_consola(error):
@@ -112,8 +134,7 @@ def body_mensaje_error_comando_consola(error):
     Returns:
         str: Mensaje de error de ejecución de comando
     """
-    return (
-        f"""
+    return f"""
 ❌⚠️ *Error al Ejecutar Comando* ⚠️❌
 
 ¡Hola *{NOMBRE_ENV}*!
@@ -122,12 +143,10 @@ Hubo un problema al intentar ejecutar el comando en la consola de Windows. El er
         
 `{error}`
 
-Por favor, verifica el comando y vuelve a intentarlo. Si el problema persiste, contacta con """
-        + """soporte técnico para obtener ayuda.
+Por favor, verifica el comando y vuelve a intentarlo. Si el problema persiste, contacta con soporte técnico para obtener ayuda.
 
 *Gracias por tu comprensión.*
 """
-    )
 
 
 def body_mensaje_error_suspender():
@@ -136,18 +155,15 @@ def body_mensaje_error_suspender():
     Returns:
         str: Mensaje de error de suspensión
     """
-    return (
-        f"""
+    return f"""
 ❌💤 *Error al suspender el PC!* 💤❌
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Hubo un problema al intentar suspender tu computadora. Por favor, inténtalo de nuevo o contacta"""
-        + """ con soporte técnico si el problema persiste.
+Hubo un problema al intentar suspender tu computadora. Por favor, inténtalo de nuevo o contacta con soporte técnico si el problema persiste.
 
 *Gracias por tu comprensión.*
 """
-    )
 
 
 def body_mensaje_error_bloquear():
@@ -156,18 +172,15 @@ def body_mensaje_error_bloquear():
     Returns:
         str: Mensaje de error de bloqueo.
     """
-    return (
-        f"""
+    return f"""
 ❌🔒 *Error al bloquear el PC!* 🔒❌
 
 ¡Hola *{NOMBRE_ENV}*!
 
-Hubo un problema al intentar bloquear tu computadora. Por favor, inténtalo de nuevo o consulta """
-        + """con soporte técnico si el problema persiste.
+Hubo un problema al intentar bloquear tu computadora. Por favor, inténtalo de nuevo o consulta con soporte técnico si el problema persiste.
 
 *Gracias por tu comprensión.*
 """
-    )
 
 
 def body_mensaje_error_volumen():
@@ -191,6 +204,23 @@ def body_mensaje_error_brillo():
 ¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar ajustar el brillo. Por favor, revisa la configuración y vuelve a intentarlo.
+
+*Gracias por tu comprensión.*
+"""
+
+
+def body_mensaje_error_escribir_teclado(texto):
+    """Mensaje de error al intentar escribir con el teclado"""
+    return f"""
+❌⚠️ *Error al escribir con el teclado!* ⚠️❌
+
+¡Hola *{NOMBRE_ENV}*!
+
+Hubo un problema al intentar escribir el siguiente texto en el teclado:
+
+`{texto}`
+
+Por favor, verifica el texto e inténtalo de nuevo. Si el problema persiste, contacta con soporte técnico.
 
 *Gracias por tu comprensión.*
 """
