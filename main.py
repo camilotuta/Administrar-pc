@@ -5,6 +5,7 @@ del estado de la bateria del portátil"""
 # TODO: crear función para mantener teclas presionadas
 # TODO: crear función para controlar la multimedia de pc, si no hay librería, se puede hacer presionando teclas
 # TODO: colocar nuevas funciones en el mensaje de ayuda
+# TODO: desactivar notificaciones o activar desde el icono oculto
 from Screens.icono_oculto import poner_icono_oculto
 from funciones import opciones
 from funciones.ejecutar_funciones import (
