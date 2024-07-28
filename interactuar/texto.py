@@ -60,16 +60,33 @@ def verificar_elemento_en_string(lista, texto):
 
 
 def verificar_llave_diccionario_en_string(dic, cadena):
-    """verifica si un elemento de un diccionario dado, esta dentro de una cadena de texto
+    """
+    Verifica si alguna clave de un diccionario dado está contenida en una cadena de texto.
 
     Args:
-        diccionario (dic): diccionario lleves string y funciones como valores
-        texto (str): texto
+        dic (dict): Diccionario cuyas claves son strings.
+        cadena (str): Cadena de texto en la que buscar.
 
     Returns:
-        bool: devuelve si algún elemento del diccionario esta en la cadena de texto
+        bool: Devuelve True si alguna clave del diccionario está en la cadena de texto
     """
-    for y, _ in dic.items():
-        if y in cadena:
+    # Recorre las claves del diccionario
+    for clave in dic.keys():
+        # Verifica si la clave está en la cadena
+        if clave in cadena:
             return True
     return False
+
+
+def verificar_string_en_llave_diccionario(dic, cadena):
+    """
+    Verifica si un string se encuentra en alguna clave de un diccionario
+
+    Args:
+        dic (dict): Diccionario cuyas claves son strings.
+        cadena (str): Cadena de texto.
+
+    Returns:
+        bool: Devuelve True si un string se encuentra en alguna clave de un diccionario
+    """
+    return cadena in dic

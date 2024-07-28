@@ -1,40 +1,78 @@
-"""Módulo para poner icono en el apartado de iconos ocultos en windows"""
-# cSpell:ignore peticion pystray
+"""Módulo para poner icono en el apartado de iconos ocultos en Windows"""
+# cSpell:ignore peticion pystray automatica ejecucion
 
-import os
+from os import _exit
 from threading import Thread
 
-import pystray
+from pystray import Menu, MenuItem, Icon
+from funciones import opciones
 from PIL import Image
 
 
-def create_image():
-    """crea la imagen del icono que aparecerá en el apartado
+def crear_imagen():
+    """Crea la imagen del icono que aparecerá en el apartado de iconos ocultos.
 
     Returns:
-        Image: devuelve un objeto con todos los datos de la imagen
+        Image: Devuelve un objeto con todos los datos de la imagen.
     """
     icon_path = r"C:\Users\tutaa\Workspace\Python\Projects\Administrar pc\resources\ico\icon.ico"
     image = Image.open(icon_path)
     return image
 
 
-def on_quit(icon):
-    """Finaliza la ejecución del icono y de la aplicación
+def cambiar_alerta_notificaciones(icon):
+    """Cambia el estado de las alertas automáticas y reinicia el icono.
 
     Args:
-        icon (any): icono para finalizar su ejecución
+        icon (pystray.Icon): El icono actual que se está mostrando.
+    """
+    opciones.ENVIAR_ALERTA_AUTOMATICA = not opciones.ENVIAR_ALERTA_AUTOMATICA
+    cerrar_icono(icon)
+    poner_icono_oculto()
+
+
+def cambiar_texto_alerta_notificaciones():
+    """Determina el texto para el menú de notificaciones basado en su estado actual.
+
+    Returns:
+        str: El texto que se mostrará en el menú.
+    """
+    if opciones.ENVIAR_ALERTA_AUTOMATICA:
+        return "Desactivar Notificaciones"
+    return "Activar Notificaciones"
+
+
+def cerrar_icono(icon):
+    """Finaliza la ejecución del icono.
+
+    Args:
+        icon (pystray.Icon): El icono actual que se está mostrando.
     """
     icon.stop()
-    os._exit(0)
+
+
+def finalizar_ejecucion(icon):
+    """Finaliza la ejecución del icono y de la aplicación.
+
+    Args:
+        icon (pystray.Icon): El icono actual que se está mostrando.
+    """
+    cerrar_icono(icon)
+    _exit(0)
 
 
 def poner_icono_oculto():
-    """Ejecuta el icono en el apartado de iconos ocultos en windows"""
+    """Ejecuta el icono en el apartado de iconos ocultos en Windows."""
 
     def enviar_peticion():
-        icon_admin_app = pystray.Icon("test_icon", create_image(), "Admin Pc")
-        icon_admin_app.menu = pystray.Menu(pystray.MenuItem("Salir", on_quit))
+        """Función interna para configurar y ejecutar el icono de la aplicación."""
+        icon_admin_app = Icon("test_icon", crear_imagen(), "Admin Pc")
+        icon_admin_app.menu = Menu(
+            MenuItem(
+                cambiar_texto_alerta_notificaciones(), cambiar_alerta_notificaciones
+            ),
+            MenuItem("Salir", finalizar_ejecucion),
+        )
         icon_admin_app.run()
 
     peticion_thread = Thread(target=enviar_peticion)
