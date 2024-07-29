@@ -4,11 +4,11 @@
 from threading import Thread
 
 from funciones.funciones_bateria import (
+    activar_ahorro_bateria,
+    desactivar_ahorro_bateria,
     obtener_estado_bateria,
     obtener_porcentaje_bateria,
     obtener_tiempo_restante_bateria,
-    activar_ahorro_bateria,
-    desactivar_ahorro_bateria,
 )
 from funciones.funciones_consola import ejecutar_consola
 from funciones.funciones_control import (
@@ -17,6 +17,11 @@ from funciones.funciones_control import (
     escribir_con_teclado,
     obtener_brillo_actual,
     obtener_volumen_actual,
+    pausar_multimedia,
+    presionar_con_teclado,
+    reproducir_anterior_contenido,
+    reproducir_multimedia,
+    reproducir_siguiente_contenido,
 )
 from funciones.funciones_notificaciones import (
     activar_notificaciones,
@@ -30,6 +35,7 @@ from funciones.funciones_sistema import (
 )
 from interactuar.archivo import RUTA_SCRIPTS, obtener_lista_archivos
 from mensajes.mensaje import (
+    body_mensaje_activar_ahorro_bateria,
     body_mensaje_activar_notificaciones,
     body_mensaje_apagar,
     body_mensaje_ayuda,
@@ -39,18 +45,22 @@ from mensajes.mensaje import (
     body_mensaje_cambiar_brillo,
     body_mensaje_cambiar_volumen,
     body_mensaje_cargado,
+    body_mensaje_desactivar_ahorro_bateria,
     body_mensaje_desactivar_notificaciones,
     body_mensaje_descargado,
     body_mensaje_desconocido,
     body_mensaje_escribir_teclado,
     body_mensaje_estado,
     body_mensaje_lista_comandos,
+    body_mensaje_pausar_multimedia,
     body_mensaje_porcentaje,
+    body_mensaje_presionar_con_teclado,
     body_mensaje_reiniciar,
+    body_mensaje_reproducir_anterior_contenido,
+    body_mensaje_reproducir_multimedia,
+    body_mensaje_reproducir_siguiente_contenido,
     body_mensaje_suspender,
     body_mensaje_volumen,
-    body_mensaje_activar_ahorro_bateria,
-    body_mensaje_desactivar_ahorro_bateria,
 )
 from mensajes.mensaje_error import (
     body_mensaje_error_activar_ahorro_bateria,
@@ -58,15 +68,20 @@ from mensajes.mensaje_error import (
     body_mensaje_error_apagar,
     body_mensaje_error_bloquear,
     body_mensaje_error_brillo,
+    body_mensaje_error_desactivar_ahorro_bateria,
     body_mensaje_error_desactivar_notificaciones,
     body_mensaje_error_escribir_teclado,
     body_mensaje_error_estado,
     body_mensaje_error_lista_comandos,
+    body_mensaje_error_pausar_multimedia,
     body_mensaje_error_porcentaje,
+    body_mensaje_error_presionar_con_teclado,
     body_mensaje_error_reiniciar,
+    body_mensaje_error_reproducir_anterior_contenido,
+    body_mensaje_error_reproducir_multimedia,
+    body_mensaje_error_reproducir_siguiente_contenido,
     body_mensaje_error_suspender,
     body_mensaje_error_volumen,
-    body_mensaje_error_desactivar_ahorro_bateria,
 )
 from mensajes.mensaje_whatsapp import enviar_mensaje
 from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
@@ -398,3 +413,76 @@ def ayuda():
         mostrar_mensaje_sin_detener_ejecucion(
             "ERROR AL ENVIAR MENSAJE DE AYUDA", str(e)
         )
+
+
+def presionar(tecla):
+    """Simula la presión de una tecla y envía una confirmación a través de WhatsApp.
+
+    Args:
+        tecla (str): La tecla que se simulará.
+
+    Raises:
+        Exception: En caso de error al simular la presión de la tecla, enviará un mensaje de error
+        a través de WhatsApp.
+    """
+    try:
+        presionar_con_teclado(tecla)
+        enviar_mensaje(body_mensaje_presionar_con_teclado(tecla))
+    except Exception:  # pylint: disable=broad-exception-caught
+        enviar_mensaje(body_mensaje_error_presionar_con_teclado(tecla))
+
+
+def pausar():
+    """Pausa la reproducción multimedia y envía una confirmación a través de WhatsApp.
+
+    Raises:
+        Exception: En caso de error al pausar la reproducción multimedia, se enviará un mensaje de
+        error a través de WhatsApp.
+    """
+    try:
+        pausar_multimedia()
+        enviar_mensaje(body_mensaje_pausar_multimedia())
+    except Exception:  # pylint: disable=broad-exception-caught
+        enviar_mensaje(body_mensaje_error_pausar_multimedia())
+
+
+def reproducir():
+    """Reanuda la reproducción multimedia y envía una confirmación a través de WhatsApp.
+
+    Raises:
+        Exception: En caso de error al reanudar la reproducción multimedia, se enviará un mensaje de
+        error a través de WhatsApp.
+    """
+    try:
+        reproducir_multimedia()
+        enviar_mensaje(body_mensaje_reproducir_multimedia())
+    except Exception:  # pylint: disable=broad-exception-caught
+        enviar_mensaje(body_mensaje_error_reproducir_multimedia())
+
+
+def siguiente():
+    """Reproduce el siguiente contenido multimedia y envía una confirmación a través de WhatsApp.
+
+    Raises:
+        Exception: En caso de error al reproducir el siguiente contenido, se enviará un mensaje de
+        error a través de WhatsApp.
+    """
+    try:
+        reproducir_siguiente_contenido()
+        enviar_mensaje(body_mensaje_reproducir_siguiente_contenido())
+    except Exception:  # pylint: disable=broad-exception-caught
+        enviar_mensaje(body_mensaje_error_reproducir_siguiente_contenido())
+
+
+def anterior():
+    """Reproduce el contenido multimedia anterior y envía una confirmación a través de WhatsApp.
+
+    Raises:
+        Exception: En caso de error al reproducir el contenido anterior, se enviará un mensaje de
+        error a través de WhatsApp.
+    """
+    try:
+        reproducir_anterior_contenido()
+        enviar_mensaje(body_mensaje_reproducir_anterior_contenido())
+    except Exception:  # pylint: disable=broad-exception-caught
+        enviar_mensaje(body_mensaje_error_reproducir_anterior_contenido())

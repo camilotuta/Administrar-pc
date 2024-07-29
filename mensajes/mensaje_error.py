@@ -224,3 +224,72 @@ Por favor, verifica el texto e inténtalo de nuevo. Si el problema persiste, con
 
 *Gracias por tu comprensión.*
 """
+
+
+def body_mensaje_error_presionar_con_teclado(tecla):
+    """Mensaje de error al presionar una tecla especial del teclado de Windows"""
+    return (
+        f"""
+❌⚠️ *Error al presionar la tecla *`{tecla}`! ⚠️❌
+
+¡Hola *{NOMBRE_ENV}*!
+
+Hubo un problema al intentar presionar la tecla `{tecla}`. Por favor, verifica la configuración o"""
+        + """ intenta nuevamente.
+Si el problema persiste, contacta con soporte técnico.
+
+*Gracias por tu comprensión.*
+"""
+    )
+
+
+def body_mensaje_error_pausar_multimedia():
+    """Mensaje de error al pausar la reproducción multimedia"""
+    return f"""
+❌⚠️ *Error al pausar la reproducción multimedia!* ⚠️❌
+
+¡Hola *{NOMBRE_ENV}*!
+
+Hubo un problema al intentar pausar la reproducción multimedia. Por favor, intenta nuevamente o contacta con soporte técnico.
+
+*Gracias por tu comprensión.*
+"""
+
+
+def body_mensaje_error_reproducir_multimedia():
+    """Mensaje de error al reproducir multimedia"""
+    return f"""
+❌⚠️ *Error al iniciar la reproducción multimedia!* ⚠️❌
+
+¡Hola *{NOMBRE_ENV}*!
+
+Hubo un problema al intentar iniciar la reproducción multimedia. Por favor, intenta nuevamente o contacta con soporte técnico.
+
+*Gracias por tu comprensión.*
+"""
+
+
+def body_mensaje_error_reproducir_siguiente_contenido():
+    """Mensaje de error al reproducir el siguiente contenido multimedia"""
+    return f"""
+❌⚠️ *Error al intentar reproducir el siguiente contenido multimedia!* ⚠️❌
+
+¡Hola *{NOMBRE_ENV}*!
+
+Hubo un problema al intentar reproducir la siguiente pista de contenido multimedia. Por favor, intenta nuevamente o contacta con soporte técnico.
+
+*Gracias por tu comprensión.*
+"""
+
+
+def body_mensaje_error_reproducir_anterior_contenido():
+    """Mensaje de error al reproducir el contenido multimedia anterior"""
+    return f"""
+❌⚠️ *Error al intentar reproducir el contenido multimedia anterior!* ⚠️❌
+
+¡Hola *{NOMBRE_ENV}*!
+
+Hubo un problema al intentar reproducir la pista de contenido multimedia anterior. Por favor, intenta nuevamente o contacta con soporte técnico.
+
+*Gracias por tu comprensión.*
+"""

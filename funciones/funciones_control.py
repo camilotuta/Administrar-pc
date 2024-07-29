@@ -1,12 +1,16 @@
 """Módulo para ejecutar funciones para controlar el volumen y el brillo del pc"""
-# cSpell:ignore clsctx comtypes pycaw pyautogui
+# cSpell:ignore clsctx comtypes pycaw pyautogui nexttrack playpause prevtrack
 
 from ctypes import POINTER, cast
 
 from comtypes import CLSCTX_ALL
-from pyautogui import typewrite
+from pyautogui import press, typewrite
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from screen_brightness_control import get_brightness, set_brightness
+
+devices = AudioUtilities.GetSpeakers()
+interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)  # pylint: disable=protected-access
+volume = cast(interface, POINTER(IAudioEndpointVolume))
 
 
 def cambiar_brillo(nivel):
@@ -34,9 +38,6 @@ def cambiar_volumen(nivel):
     Args:
         nivel (float): El nivel de volumen deseado (0.0-1.0).
     """
-    devices = AudioUtilities.GetSpeakers()
-    interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)  # pylint: disable=protected-access
-    volume = cast(interface, POINTER(IAudioEndpointVolume))
 
     nivel = 0 if (nivel < 0) else 100 if (nivel >= 100) else nivel
 
@@ -49,9 +50,6 @@ def obtener_volumen_actual():
     Returns:
         float: El nivel de volumen actual (0.0-1.0).
     """
-    devices = AudioUtilities.GetSpeakers()
-    interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)  # pylint: disable=protected-access
-    volume = cast(interface, POINTER(IAudioEndpointVolume))
 
     return int(volume.GetMasterVolumeLevelScalar() * 100)
 
@@ -64,3 +62,32 @@ def escribir_con_teclado(texto):
     Args:
         texto (str): El texto que se desea escribir utilizando el teclado."""
     typewrite(texto)
+
+
+def presionar_con_teclado(tecla):
+    """Presiona una tecla especificada.
+
+    Args:
+        tecla (str): La tecla que se desea presionar.
+    """
+    press(tecla)
+
+
+def pausar_multimedia():
+    """Pausa o reanuda la reproducción multimedia."""
+    press("playpause")
+
+
+def reproducir_multimedia():
+    """Reproduce o pausa la reproducción multimedia."""
+    press("playpause")
+
+
+def reproducir_siguiente_contenido():
+    """Reproduce la siguiente pista multimedia."""
+    press("nexttrack")
+
+
+def reproducir_anterior_contenido():
+    """Reproduce la pista multimedia anterior."""
+    press("prevtrack")

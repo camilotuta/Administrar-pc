@@ -18,7 +18,12 @@ from funciones.ejecutar_funciones import (
     lista_comandos,
     obtener_brillo,
     obtener_volumen,
+    pausar,
+    presionar,
     reiniciar,
+    reproducir,
+    anterior,
+    siguiente,
     suspender,
 )
 
@@ -46,6 +51,11 @@ FUNCIONES_CONTROL = {
     "brillo ": cambiar_brillo_pc,
     "brillo": obtener_brillo,
     "escribir ": escribir_teclado,
+    "presionar ": presionar,
+    "siguiente": siguiente,
+    "anterior": anterior,
+    "pausar": pausar,
+    "reproducir": reproducir,
 }
 
 FUNCIONES_CONSOLA = {"consola: ": ejecutar_en_consola}

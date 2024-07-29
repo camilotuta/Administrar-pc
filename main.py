@@ -33,8 +33,6 @@ from mensajes.mensaje_whatsapp import (
 from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
 from Screens.icono_oculto import poner_icono_oculto
 
-# TODO: crear función para mantener teclas presionadas
-# TODO: crear función para controlar la multimedia de pc, si no hay librería, se puede hacer presionando teclas
 # TODO: colocar nuevas funciones en el mensaje de ayuda
 # TODO: generador de qr
 # TODO: crear nueva contraseña

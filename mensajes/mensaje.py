@@ -275,6 +275,11 @@ Parece que necesitas un poco de ayuda. Aquí tienes algunos comandos que puedes 
 3️⃣ *Obtener Brillo:* `Brillo`
 4️⃣ *Cambiar Brillo:* `Brillo [nivel 0-100]`
 5️⃣ *Escribir Texto:* `Escribir [texto]`
+6️⃣ *Presionar Tecla:* `Presionar [tecla]`
+7️⃣ *Reproducir Siguiente:* `Siguiente`
+8️⃣ *Reproducir Anterior:* `Anterior`
+9️⃣ *Pausar:* `Pausar`
+🔟 *Reproducir:* `Reproducir`
 
 💻 *Funciones de Consola:*
 1️⃣ *Comando en Consola:* `Consola: [comando]`
@@ -435,4 +440,72 @@ El siguiente texto ha sido escrito correctamente en el teclado:
 `{texto}`
 
 *Gracias por tu atención.*
+"""
+
+
+def body_mensaje_presionar_con_teclado(tecla):
+    """Mensaje de confirmación para presionar una tecla especial del teclado de Windows"""
+    return (
+        f"""
+⌨️ *Tecla Presionada:* `{tecla}` ⌨️
+
+¡Hola *{NOMBRE_ENV}*!
+
+La tecla especial `{tecla}` ha sido presionada correctamente. Si necesitas realizar más acciones"""
+        + """, no dudes en decírmelo.
+
+*Gracias por usar el sistema.*
+"""
+    )
+
+
+def body_mensaje_pausar_multimedia():
+    """Mensaje de confirmación para pausar la reproducción multimedia"""
+    return f"""
+⏸️ *Reproducción Multimedia Pausada* ⏸️
+
+¡Hola *{NOMBRE_ENV}*!
+
+La reproducción multimedia se ha pausado correctamente. Si necesitas hacer más ajustes, aquí estoy para ayudar.
+
+*Gracias por usar el sistema.*
+"""
+
+
+def body_mensaje_reproducir_multimedia():
+    """Mensaje de confirmación para reproducir multimedia"""
+    return f"""
+▶️ *Reproducción Multimedia Iniciada* ▶️
+
+¡Hola *{NOMBRE_ENV}*!
+
+La reproducción multimedia se ha iniciado correctamente. Si deseas realizar algún ajuste, házmelo saber.
+
+*Gracias por usar el sistema.*
+"""
+
+
+def body_mensaje_reproducir_siguiente_contenido():
+    """Mensaje de confirmación para reproducir el siguiente contenido multimedia"""
+    return f"""
+⏭️ *Siguiente Contenido Multimedia Reproducido* ⏭️
+
+¡Hola *{NOMBRE_ENV}*!
+
+La siguiente pista de contenido multimedia se está reproduciendo ahora. Si necesitas realizar más ajustes, aquí estoy para ayudar.
+
+*Gracias por usar el sistema.*
+"""
+
+
+def body_mensaje_reproducir_anterior_contenido():
+    """Mensaje de confirmación para reproducir el contenido multimedia anterior"""
+    return f"""
+⏮️ *Contenido Multimedia Anterior Reproducido* ⏮️
+
+¡Hola *{NOMBRE_ENV}*!
+
+La pista de contenido multimedia anterior se está reproduciendo ahora. Si necesitas hacer más ajustes, no dudes en decírmelo.
+
+*Gracias por usar el sistema.*
 """
