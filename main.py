@@ -11,6 +11,7 @@ from funciones.ejecutar_funciones import (
 )
 from funciones.funciones_bateria import (
     bateria_esta_cargando,
+    desactivar_ahorro_bateria,
     obtener_porcentaje_bateria,
 )
 from funciones.opciones import (
@@ -136,6 +137,8 @@ def main():
                     mensaje_desconocido()
 
                 hora_mensaje_pasado = obtener_hora_ultimo_mensaje()
+            elif bateria_esta_cargando():
+                desactivar_ahorro_bateria()
     except Exception as e:  # pylint: disable=broad-exception-caught
         mostrar_mensaje_sin_detener_ejecucion("ERROR EN EJECUCIÓN PRINCIPAL", str(e))
         hora_mensaje_pasado = "None"
