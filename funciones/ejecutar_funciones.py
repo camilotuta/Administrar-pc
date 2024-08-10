@@ -1,5 +1,5 @@
 """Módulo para ejecutar todas las funciones de la aplicación con sus respectivas excepciones"""
-# cSpell:ignore bateria whatsapp ejecucion peticion notis
+# cSpell:ignore bateria whatsapp ejecucion peticion notis aleatearia codigo
 
 from threading import Thread
 
@@ -10,6 +10,7 @@ from funciones.funciones_bateria import (
     obtener_porcentaje_bateria,
     obtener_tiempo_restante_bateria,
 )
+from funciones.funciones_generar import generar_clave_aleatoria
 from funciones.funciones_consola import ejecutar_consola
 from funciones.funciones_control import (
     cambiar_brillo,
@@ -61,6 +62,7 @@ from mensajes.mensaje import (
     body_mensaje_reproducir_siguiente_contenido,
     body_mensaje_suspender,
     body_mensaje_volumen,
+    body_mensaje_generar_clave,
 )
 from mensajes.mensaje_error import (
     body_mensaje_error_activar_ahorro_bateria,
@@ -82,6 +84,7 @@ from mensajes.mensaje_error import (
     body_mensaje_error_reproducir_siguiente_contenido,
     body_mensaje_error_suspender,
     body_mensaje_error_volumen,
+    body_mensaje_error_generar_clave,
 )
 from mensajes.mensaje_whatsapp import enviar_mensaje
 from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
@@ -95,6 +98,26 @@ def mensaje_bienvenida():
         mostrar_mensaje_sin_detener_ejecucion(
             "ERROR AL ENVIAR MENSAJE DE BIENVENIDA", str(e)
         )
+
+
+def generar_clave(longitud):
+    """Genera una nueva contraseña y envía un mensaje de confirmación o de error
+
+    Args:
+        longitud (int): La longitud de la nueva contraseña
+    """
+    try:
+        longitud = int(longitud)
+        longitud_clave = (
+            longitud
+            if longitud is not None and isinstance(longitud, int) and longitud > 8
+            else 8
+        )
+        clave_nueva = generar_clave_aleatoria(longitud_clave)
+        enviar_mensaje(body_mensaje_generar_clave(clave_nueva))
+        enviar_mensaje(str(clave_nueva))
+    except Exception:  # pylint: disable=broad-exception-caught
+        enviar_mensaje(body_mensaje_error_generar_clave())
 
 
 def mensaje_desconocido():

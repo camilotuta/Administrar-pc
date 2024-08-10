@@ -1,5 +1,5 @@
 """Modulo para acceder a todos los mensajes por defecto para enviar con Twilio"""
-# cSpell:ignore bateria conéctalo activacion desactivacion dotenv
+# cSpell:ignore bateria conéctalo activacion desactivacion dotenv clave
 
 from data.user_data import NOMBRE_ENV
 
@@ -281,6 +281,9 @@ Parece que necesitas un poco de ayuda. Aquí tienes algunos comandos que puedes 
 9️⃣ *Pausar:* `Pausar`
 🔟 *Reproducir:* `Reproducir`
 
+💻 *Funciones de Generar:*
+1️⃣ *Generar Contraseña:* `Contraseña [tamaño]`
+
 💻 *Funciones de Consola:*
 1️⃣ *Comando en Consola:* `Consola: [comando]`
 
@@ -508,4 +511,18 @@ def body_mensaje_reproducir_anterior_contenido():
 La pista de contenido multimedia anterior se está reproduciendo ahora. Si necesitas hacer más ajustes, no dudes en decírmelo.
 
 *Gracias por usar el sistema.*
+"""
+
+def body_mensaje_generar_clave(clave_nueva):
+    """Mensaje de confirmación para generar una nueva contraseña"""
+    return f"""
+🔐 *Nueva Contraseña Generada* 🔐
+
+¡Hola *{NOMBRE_ENV}*!
+
+Tu nueva contraseña ha sido generada exitosamente. Aquí tienes tu contraseña:
+
+🔑 `{clave_nueva}`
+
+*Recuerda guardarla en un lugar seguro. Gracias por usar el sistema.*
 """

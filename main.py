@@ -17,6 +17,7 @@ from funciones.opciones import (
     FUNCIONES_BATERIA,
     FUNCIONES_CONSOLA,
     FUNCIONES_CONTROL,
+    FUNCIONES_GENERAR,
     FUNCIONES_SISTEMA,
     FUNCIONES_SOPORTE,
     PROGRAMA_ACTIVO,
@@ -35,7 +36,6 @@ from Screens.icono_oculto import poner_icono_oculto
 
 # TODO: colocar nuevas funciones en el mensaje de ayuda
 # TODO: generador de qr
-# TODO: crear nueva contraseña
 
 
 def main():
@@ -73,70 +73,72 @@ def main():
                 # & BATERIA
                 if verificar_string_en_llave_diccionario(
                     FUNCIONES_BATERIA,
-                    quitar_acentos(obtener_ultimo_mensaje().lower()),
+                    quitar_acentos(obtener_ultimo_mensaje()),
                 ):
-                    FUNCIONES_BATERIA[
-                        quitar_acentos(obtener_ultimo_mensaje().lower())
-                    ]()
+                    FUNCIONES_BATERIA[quitar_acentos(obtener_ultimo_mensaje())]()
 
                 # & SISTEMA
                 elif verificar_llave_diccionario_en_string(
                     FUNCIONES_SISTEMA,
-                    quitar_acentos(obtener_ultimo_mensaje().lower()),
+                    quitar_acentos(obtener_ultimo_mensaje()),
                 ):
-                    palabras = quitar_acentos(obtener_ultimo_mensaje().lower()).split(
-                        " "
-                    )
+                    palabras = quitar_acentos(obtener_ultimo_mensaje()).split(" ")
                     if len(palabras) == 1:
-                        FUNCIONES_SISTEMA[(quitar_acentos(palabras[0]))](0)
+                        FUNCIONES_SISTEMA[(quitar_acentos(palabras[0]))](10)
                     elif len(palabras) == 2:
                         FUNCIONES_SISTEMA[(quitar_acentos(palabras[0]))](palabras[1])
 
                 # & CONTROL
                 elif verificar_llave_diccionario_en_string(
                     FUNCIONES_CONTROL,
-                    quitar_acentos(obtener_ultimo_mensaje().lower()),
+                    quitar_acentos(obtener_ultimo_mensaje()),
                 ):
-                    palabras = quitar_acentos(obtener_ultimo_mensaje().lower()).split(
-                        " "
-                    )
+                    palabras = quitar_acentos(obtener_ultimo_mensaje()).split(" ")
                     if len(palabras) == 1:
                         FUNCIONES_CONTROL[(quitar_acentos(palabras[0]))]()
                     elif len(palabras) == 2:
-                        FUNCIONES_CONTROL[(quitar_acentos(palabras[0] + " "))](
+                        FUNCIONES_CONTROL[(quitar_acentos(palabras[0]) + " ")](
+                            palabras[1]
+                        )
+                # & GENERAR
+                elif verificar_llave_diccionario_en_string(
+                    FUNCIONES_GENERAR,
+                    quitar_acentos(obtener_ultimo_mensaje()),
+                ):
+                    palabras = quitar_acentos(obtener_ultimo_mensaje()).split(" ")
+                    if len(palabras) == 2:
+                        FUNCIONES_GENERAR[(quitar_acentos(palabras[0] + " "))](
                             palabras[1]
                         )
 
                 # & CONSOLA
                 elif verificar_llave_diccionario_en_string(
                     FUNCIONES_CONSOLA,
-                    quitar_acentos(obtener_ultimo_mensaje().lower()),
+                    quitar_acentos(obtener_ultimo_mensaje()),
                 ):
-                    comando = obtener_ultimo_mensaje().lower().replace("consola: ", "")
-                    if len(comando) > 2:
-                        FUNCIONES_CONSOLA[
-                            (
-                                quitar_acentos(
-                                    obtener_ultimo_mensaje().lower().split(" ")[0]
-                                )
-                                + " "
+                    palabras = quitar_acentos(obtener_ultimo_mensaje()).split(" ")
+                    if len(palabras) == 1:
+                        FUNCIONES_CONSOLA[(quitar_acentos(palabras[0]))]()
+                    elif len(palabras) >= 2:
+                        FUNCIONES_CONSOLA[(quitar_acentos(palabras[0] + " "))](
+                            quitar_acentos(obtener_ultimo_mensaje()).replace(
+                                palabras[0] + " ", ""
                             )
-                        ](comando)
+                        )
 
                 # & SOPORTE
                 elif verificar_string_en_llave_diccionario(
                     FUNCIONES_SOPORTE,
-                    quitar_acentos(obtener_ultimo_mensaje().lower()),
+                    quitar_acentos(obtener_ultimo_mensaje()),
                 ):
-                    FUNCIONES_SOPORTE[
-                        (quitar_acentos(obtener_ultimo_mensaje().lower()))
-                    ]()
+                    FUNCIONES_SOPORTE[(quitar_acentos(obtener_ultimo_mensaje()))]()
                 else:
                     mensaje_desconocido()
 
                 hora_mensaje_pasado = obtener_hora_ultimo_mensaje()
     except Exception as e:  # pylint: disable=broad-exception-caught
         mostrar_mensaje_sin_detener_ejecucion("ERROR EN EJECUCIÓN PRINCIPAL", str(e))
+        hora_mensaje_pasado = "None"
 
 
 if __name__ == "__main__":

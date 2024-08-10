@@ -2,9 +2,6 @@
 # cSpell:ignore twilio whatsapp bateria dotenv proyects ejecucion peticion
 
 from threading import Thread
-from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
-
-from twilio.rest import Client
 
 from data.user_data import (
     AUTH_TOKEN_ENV,
@@ -12,6 +9,8 @@ from data.user_data import (
     SID_ENV,
     TO_WHATSAPP_NUMBER_ENV,
 )
+from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
+from twilio.rest import Client
 
 
 def conectar_cliente():

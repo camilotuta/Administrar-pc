@@ -3,6 +3,7 @@
 
 from funciones.ejecutar_funciones import (
     activar_ahorro,
+    generar_clave,
     activar_notis,
     apagar,
     ayuda,
@@ -43,6 +44,10 @@ FUNCIONES_SISTEMA = {
     "reiniciar": reiniciar,
     "suspender": suspender,
     "bloquear": bloquear,
+}
+FUNCIONES_GENERAR = {
+    "clave ": generar_clave,
+    # "qr: ": generar_qr,
 }
 
 FUNCIONES_CONTROL = {

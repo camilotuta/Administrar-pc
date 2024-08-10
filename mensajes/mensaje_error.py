@@ -230,7 +230,7 @@ def body_mensaje_error_presionar_con_teclado(tecla):
     """Mensaje de error al presionar una tecla especial del teclado de Windows"""
     return (
         f"""
-❌⚠️ *Error al presionar la tecla *`{tecla}`! ⚠️❌
+❌⚠️ *Error al presionar la tecla* `{tecla}`! ⚠️❌
 
 ¡Hola *{NOMBRE_ENV}*!
 
@@ -290,6 +290,19 @@ def body_mensaje_error_reproducir_anterior_contenido():
 ¡Hola *{NOMBRE_ENV}*!
 
 Hubo un problema al intentar reproducir la pista de contenido multimedia anterior. Por favor, intenta nuevamente o contacta con soporte técnico.
+
+*Gracias por tu comprensión.*
+"""
+
+
+def body_mensaje_error_generar_clave():
+    """Mensaje de error al generar una nueva contraseña"""
+    return f"""
+❌🔐 *Error al Generar Nueva Contraseña* 🔐❌
+
+¡Hola *{NOMBRE_ENV}*!
+
+Hubo un problema al intentar generar una nueva contraseña. Por favor, inténtalo de nuevo o contacta con soporte técnico.
 
 *Gracias por tu comprensión.*
 """

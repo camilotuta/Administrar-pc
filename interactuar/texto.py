@@ -70,9 +70,7 @@ def verificar_llave_diccionario_en_string(dic, cadena):
     Returns:
         bool: Devuelve True si alguna clave del diccionario está en la cadena de texto
     """
-    # Recorre las claves del diccionario
     for clave in dic.keys():
-        # Verifica si la clave está en la cadena
         if clave in cadena:
             return True
     return False
