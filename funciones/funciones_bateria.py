@@ -14,7 +14,7 @@ def activar_ahorro_bateria():
     Configura el sistema para que entre en modo de ahorro de batería
     Esta configuración se aplica al perfil de energía actual.
     """
-    global AHORRO_ACTIVADO
+    global AHORRO_ACTIVADO  # pylint: disable=[global-statement]
     AHORRO_ACTIVADO = True
     system(
         "powercfg /setdcvalueindex SCHEME_CURRENT SUB_ENERGYSAVER ESBATTTHRESHOLD 100"
@@ -28,7 +28,7 @@ def desactivar_ahorro_bateria():
     Configura el sistema para que no entre en modo de ahorro de batería
     Esta configuración se aplica al perfil de energía actual.
     """
-    global AHORRO_ACTIVADO
+    global AHORRO_ACTIVADO  # pylint: disable=[global-statement]
     AHORRO_ACTIVADO = False
     system("powercfg /setdcvalueindex SCHEME_CURRENT SUB_ENERGYSAVER ESBATTTHRESHOLD 0")
     system("powercfg /setactive SCHEME_CURRENT")
