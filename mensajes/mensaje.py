@@ -281,10 +281,10 @@ Parece que necesitas un poco de ayuda. Aquí tienes algunos comandos que puedes 
 9️⃣ *Pausar:* `Pausar`
 🔟 *Reproducir:* `Reproducir`
 
-💻 *Funciones de Generar:*
-1️⃣ *Generar Contraseña:* `Contraseña [tamaño]`
+📲 *Funciones de Generar:*
+1️⃣ *Generar Clave Aleatoria:* `Clave [tamaño]`
 
-💻 *Funciones de Consola:*
+🖥️ *Funciones de Consola:*
 1️⃣ *Comando en Consola:* `Consola: [comando]`
 
 🛠 *Funciones de Soporte:*
@@ -512,6 +512,7 @@ La pista de contenido multimedia anterior se está reproduciendo ahora. Si neces
 
 *Gracias por usar el sistema.*
 """
+
 
 def body_mensaje_generar_clave(clave_nueva):
     """Mensaje de confirmación para generar una nueva contraseña"""

@@ -5,6 +5,8 @@ tiempo restante de vida de la bateria y si la bateria está cargando"""
 from os import system
 from psutil import sensors_battery, POWER_TIME_UNKNOWN, POWER_TIME_UNLIMITED
 
+AHORRO_ACTIVADO = False
+
 
 def activar_ahorro_bateria():
     """Activa el modo de ahorro de batería
@@ -12,6 +14,8 @@ def activar_ahorro_bateria():
     Configura el sistema para que entre en modo de ahorro de batería
     Esta configuración se aplica al perfil de energía actual.
     """
+    global AHORRO_ACTIVADO
+    AHORRO_ACTIVADO = True
     system(
         "powercfg /setdcvalueindex SCHEME_CURRENT SUB_ENERGYSAVER ESBATTTHRESHOLD 100"
     )
@@ -24,6 +28,8 @@ def desactivar_ahorro_bateria():
     Configura el sistema para que no entre en modo de ahorro de batería
     Esta configuración se aplica al perfil de energía actual.
     """
+    global AHORRO_ACTIVADO
+    AHORRO_ACTIVADO = False
     system("powercfg /setdcvalueindex SCHEME_CURRENT SUB_ENERGYSAVER ESBATTTHRESHOLD 0")
     system("powercfg /setactive SCHEME_CURRENT")
 

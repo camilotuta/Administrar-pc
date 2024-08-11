@@ -1,12 +1,16 @@
 """Módulo para poner icono en el apartado de iconos ocultos en Windows"""
-# cSpell:ignore peticion pystray automatica ejecucion
+# cSpell:ignore peticion pystray automatica ejecucion bateria condicion
 
 from os import _exit
 from threading import Thread
 
-from pystray import Menu, MenuItem, Icon
-from funciones import opciones
+from funciones import funciones_bateria, opciones
+from funciones.funciones_bateria import (
+    activar_ahorro_bateria,
+    desactivar_ahorro_bateria,
+)
 from PIL import Image
+from pystray import Icon, Menu, MenuItem
 
 
 def crear_imagen():
@@ -31,15 +35,30 @@ def cambiar_alerta_notificaciones(icon):
     poner_icono_oculto()
 
 
-def cambiar_texto_alerta_notificaciones():
+def cambiar_ahorro_bateria(icon):
+    """Cambia el estado del ahorro de bateria actual, lo activa o lo desactiva
+
+    Args:
+        icon (pystray.Icon): El icono actual que se está mostrando.
+    """
+    if funciones_bateria.AHORRO_ACTIVADO:
+        desactivar_ahorro_bateria()
+    else:
+        activar_ahorro_bateria()
+
+    cerrar_icono(icon)
+    poner_icono_oculto()
+
+
+def cambiar_texto_alerta_notificaciones(condicion, texto_si, texto_no):
     """Determina el texto para el menú de notificaciones basado en su estado actual.
 
     Returns:
         str: El texto que se mostrará en el menú.
     """
-    if opciones.ENVIAR_ALERTA_AUTOMATICA:
-        return "Desactivar Notificaciones"
-    return "Activar Notificaciones"
+    if condicion:
+        return texto_si
+    return texto_no
 
 
 def cerrar_icono(icon):
@@ -69,7 +88,20 @@ def poner_icono_oculto():
         icon_admin_app = Icon("test_icon", crear_imagen(), "Admin Pc")
         icon_admin_app.menu = Menu(
             MenuItem(
-                cambiar_texto_alerta_notificaciones(), cambiar_alerta_notificaciones
+                cambiar_texto_alerta_notificaciones(
+                    opciones.ENVIAR_ALERTA_AUTOMATICA,
+                    "Desactivar Notificaciones",
+                    "Activar Notificaciones",
+                ),
+                cambiar_alerta_notificaciones,
+            ),
+            MenuItem(
+                cambiar_texto_alerta_notificaciones(
+                    funciones_bateria.AHORRO_ACTIVADO,
+                    "Desactivar Ahorro Bateria",
+                    "Activar Ahorro Bateria",
+                ),
+                cambiar_ahorro_bateria,
             ),
             MenuItem("Salir", finalizar_ejecucion),
         )

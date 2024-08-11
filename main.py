@@ -2,7 +2,7 @@
 del estado de la bateria del portátil"""
 # cSpell:ignore bateria whatsapp activacion desactivacion automatica ejecucion
 
-from funciones import opciones
+from funciones import opciones, funciones_bateria
 from funciones.ejecutar_funciones import (
     bateria_cargada,
     bateria_descargada,
@@ -137,7 +137,7 @@ def main():
                     mensaje_desconocido()
 
                 hora_mensaje_pasado = obtener_hora_ultimo_mensaje()
-            elif bateria_esta_cargando():
+            elif bateria_esta_cargando() and funciones_bateria.AHORRO_ACTIVADO:
                 desactivar_ahorro_bateria()
     except Exception as e:  # pylint: disable=broad-exception-caught
         mostrar_mensaje_sin_detener_ejecucion("ERROR EN EJECUCIÓN PRINCIPAL", str(e))

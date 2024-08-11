@@ -30,6 +30,7 @@ from funciones.ejecutar_funciones import (
 
 PROGRAMA_ACTIVO = True
 ENVIAR_ALERTA_AUTOMATICA = True
+
 FUNCIONES_BATERIA = {
     "bateria": bateria,
     "estado": estado,
