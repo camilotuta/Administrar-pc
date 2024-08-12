@@ -1,7 +1,11 @@
 """Módulo para ejecutar funciones para controlar el volumen y el brillo del pc"""
-# cSpell:ignore clsctx comtypes pycaw pyautogui nexttrack playpause prevtrack
+# cSpell:ignore bluetooth clsctx comtypes nexttrack playpause prevtrack pyautogui pycaw bthserv
+# cSpell:ignore  setdefaulttimeout conexion
 
 from ctypes import POINTER, cast
+from socket import setdefaulttimeout, socket, AF_INET, SOCK_STREAM, error
+from time import sleep
+
 
 from comtypes import CLSCTX_ALL
 from pyautogui import press, typewrite
@@ -11,6 +15,26 @@ from screen_brightness_control import get_brightness, set_brightness
 devices = AudioUtilities.GetSpeakers()
 interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)  # pylint: disable=protected-access
 volume = cast(interface, POINTER(IAudioEndpointVolume))
+
+
+def esperar_conexion_internet():
+    """Mantiene un contador mientras encuentra conexión a internet"""
+    while not conectado_internet():
+        sleep(2)
+
+
+def conectado_internet():
+    """Comprueba si el dispositivo tiene conexión a internet
+
+    Returns:
+        bool: True si el dispositivo tiene internet y False si hay algún error
+    """
+    try:
+        setdefaulttimeout(3)
+        socket(AF_INET, SOCK_STREAM).connect(("8.8.8.8", 53))
+        return True
+    except error:
+        return False
 
 
 def cambiar_brillo(nivel):

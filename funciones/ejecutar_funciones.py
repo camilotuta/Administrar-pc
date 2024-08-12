@@ -217,7 +217,7 @@ def apagar(tiempo):
     """
     try:
         enviar_mensaje(body_mensaje_apagar())
-        apagar_pc(int(tiempo))
+        apagar_pc(tiempo)
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_apagar())
 
@@ -234,7 +234,7 @@ def reiniciar(tiempo):
     """
     try:
         enviar_mensaje(body_mensaje_reiniciar())
-        reiniciar_pc(int(tiempo))
+        reiniciar_pc(tiempo)
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_reiniciar())
 
@@ -251,7 +251,7 @@ def suspender(tiempo):
     """
     try:
         enviar_mensaje(body_mensaje_suspender())
-        suspender_pc(int(tiempo))
+        suspender_pc(tiempo)
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_suspender())
 
@@ -268,7 +268,7 @@ def bloquear(tiempo):
     """
     try:
         enviar_mensaje(body_mensaje_bloquear())
-        bloquear_pc(int(tiempo))
+        bloquear_pc(tiempo)
     except Exception:  # pylint: disable=broad-exception-caught
         enviar_mensaje(body_mensaje_error_bloquear())
 
