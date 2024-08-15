@@ -1,10 +1,12 @@
 """Módulo para ejecutar funciones para controlar el volumen y el brillo del pc"""
 # cSpell:ignore bluetooth clsctx comtypes nexttrack playpause prevtrack pyautogui pycaw bthserv
-# cSpell:ignore  setdefaulttimeout conexion
+# cSpell:ignore  setdefaulttimeout conexion ejecucion
 
 from ctypes import POINTER, cast
 from socket import setdefaulttimeout, socket, AF_INET, SOCK_STREAM, error
 from time import sleep
+from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
+import time
 
 
 from comtypes import CLSCTX_ALL
@@ -17,10 +19,17 @@ interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)  # py
 volume = cast(interface, POINTER(IAudioEndpointVolume))
 
 
-def esperar_conexion_internet():
-    """Mantiene un contador mientras encuentra conexión a internet"""
+def esperar_conexion_internet(timeout=60):
+    """Mantiene un contador mientras encuentra conexión a internet, con límite de tiempo"""
+    start_time = time.time()
     while not conectado_internet():
+        if time.time() - start_time > timeout:
+            mostrar_mensaje_sin_detener_ejecucion(
+                "ERROR", "Tiempo de espera agotado para la conexión a internet."
+            )
+            return False
         sleep(2)
+    return True
 
 
 def conectado_internet():
@@ -31,7 +40,9 @@ def conectado_internet():
     """
     try:
         setdefaulttimeout(3)
-        socket(AF_INET, SOCK_STREAM).connect(("8.8.8.8", 53))
+        conn = socket(AF_INET, SOCK_STREAM)
+        conn.connect(("8.8.8.8", 53))
+        conn.close()
         return True
     except error:
         return False

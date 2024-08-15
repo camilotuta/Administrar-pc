@@ -72,7 +72,10 @@ def main():
                     bateria_cargada()
                     bateria_pasada = obtener_porcentaje_bateria()
 
-                if obtener_hora_ultimo_mensaje() != hora_mensaje_pasado:
+                if (
+                    obtener_hora_ultimo_mensaje() != hora_mensaje_pasado
+                    and hora_mensaje_pasado != ""
+                ):
                     # & BATERIA
                     if verificar_string_en_llave_diccionario(
                         FUNCIONES_BATERIA,

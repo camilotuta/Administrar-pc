@@ -19,8 +19,8 @@ def conectar_cliente():
 
     Return: Objeto con la conexión del servidor de twilio
     """
+    esperar_conexion_internet()
     try:
-        esperar_conexion_internet()
         return Client(SID_ENV, AUTH_TOKEN_ENV)
     except Exception as e:  # pylint: disable=broad-exception-caught
         mostrar_mensaje_sin_detener_ejecucion(
@@ -38,8 +38,8 @@ def obtener_hora_ultimo_mensaje():
     Returns:
         str: fecha ultimo mensaje
     """
+    esperar_conexion_internet()
     try:
-        esperar_conexion_internet()
         messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER_ENV)
         if messages:
             last_message = messages[0]
@@ -60,8 +60,8 @@ def obtener_ultimo_mensaje():
         str: ultimo mensaje del chat de WhatsApp
     """
 
+    esperar_conexion_internet()
     try:
-        esperar_conexion_internet()
         messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER_ENV)
         if messages:
             last_message = messages[0]
@@ -81,8 +81,9 @@ def enviar_mensaje(mensaje):
         mensaje (str): cuerpo del mensaje a enviar con Twilio a WhatsApp
     """
 
+    esperar_conexion_internet()
+
     def enviar_peticion():
-        esperar_conexion_internet()
         try:
             client.messages.create(
                 body=mensaje, from_=FROM_WHATSAPP_NUMBER_ENV, to=TO_WHATSAPP_NUMBER_ENV
