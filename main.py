@@ -14,7 +14,7 @@ from funciones.funciones_bateria import (
     desactivar_ahorro_bateria,
     obtener_porcentaje_bateria,
 )
-from funciones.funciones_control import conectado_internet, esperar_conexion_internet
+from funciones.funciones_control import conectado_internet
 from funciones.opciones import (
     FUNCIONES_BATERIA,
     FUNCIONES_CONSOLA,
@@ -44,8 +44,6 @@ def main():
     """Ejecución principal"""
 
     try:
-        esperar_conexion_internet()
-
         poner_icono_oculto()
         mensaje_bienvenida()
         bateria_pasada = obtener_porcentaje_bateria()

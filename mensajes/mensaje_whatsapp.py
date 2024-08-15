@@ -1,5 +1,5 @@
 """Módulo para administrar los mensajes de WhatsApp por Twilio"""
-# cSpell:ignore twilio whatsapp bateria dotenv proyects ejecucion peticion
+# cSpell:ignore twilio whatsapp bateria dotenv proyects ejecucion peticion conexion
 
 from threading import Thread
 
@@ -11,6 +11,7 @@ from data.user_data import (
 )
 from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
 from twilio.rest import Client
+from funciones.funciones_control import esperar_conexion_internet
 
 
 def conectar_cliente():
@@ -19,6 +20,7 @@ def conectar_cliente():
     Return: Objeto con la conexión del servidor de twilio
     """
     try:
+        esperar_conexion_internet()
         return Client(SID_ENV, AUTH_TOKEN_ENV)
     except Exception as e:  # pylint: disable=broad-exception-caught
         mostrar_mensaje_sin_detener_ejecucion(
@@ -37,6 +39,7 @@ def obtener_hora_ultimo_mensaje():
         str: fecha ultimo mensaje
     """
     try:
+        esperar_conexion_internet()
         messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER_ENV)
         if messages:
             last_message = messages[0]
@@ -56,9 +59,10 @@ def obtener_ultimo_mensaje():
     Returns:
         str: ultimo mensaje del chat de WhatsApp
     """
-    messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER_ENV)
 
     try:
+        esperar_conexion_internet()
+        messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER_ENV)
         if messages:
             last_message = messages[0]
             if last_message.from_ == TO_WHATSAPP_NUMBER_ENV:
@@ -78,6 +82,7 @@ def enviar_mensaje(mensaje):
     """
 
     def enviar_peticion():
+        esperar_conexion_internet()
         try:
             client.messages.create(
                 body=mensaje, from_=FROM_WHATSAPP_NUMBER_ENV, to=TO_WHATSAPP_NUMBER_ENV
