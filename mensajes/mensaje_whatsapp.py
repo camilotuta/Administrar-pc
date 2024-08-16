@@ -36,7 +36,7 @@ def obtener_hora_ultimo_mensaje():
     """Se devuelve la fecha del ultimo mensaje enviado o recibido en el chat
 
     Returns:
-        str: fecha ultimo mensaje
+        datetime: fecha y hora del último mensaje
     """
     esperar_conexion_internet()
     try:

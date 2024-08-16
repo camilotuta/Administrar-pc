@@ -2,14 +2,13 @@
 # cSpell:ignore bluetooth clsctx comtypes nexttrack playpause prevtrack pyautogui pycaw bthserv
 # cSpell:ignore  setdefaulttimeout conexion ejecucion
 
-from ctypes import POINTER, cast
-from socket import setdefaulttimeout, socket, AF_INET, SOCK_STREAM, error
-from time import sleep
-from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
 import time
-
+from ctypes import POINTER, cast
+from socket import AF_INET, SOCK_STREAM, error, setdefaulttimeout, socket
+from time import sleep
 
 from comtypes import CLSCTX_ALL
+from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
 from pyautogui import press, typewrite
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from screen_brightness_control import get_brightness, set_brightness
@@ -19,11 +18,11 @@ interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)  # py
 volume = cast(interface, POINTER(IAudioEndpointVolume))
 
 
-def esperar_conexion_internet(timeout=60):
+def esperar_conexion_internet():
     """Mantiene un contador mientras encuentra conexión a internet, con límite de tiempo"""
     start_time = time.time()
     while not conectado_internet():
-        if time.time() - start_time > timeout:
+        if time.time() - start_time > 60:
             mostrar_mensaje_sin_detener_ejecucion(
                 "ERROR", "Tiempo de espera agotado para la conexión a internet."
             )
