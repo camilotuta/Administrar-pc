@@ -14,6 +14,7 @@ from funciones.funciones_bateria import (
     desactivar_ahorro_bateria,
     obtener_porcentaje_bateria,
 )
+from funciones.funciones_control import escribir_con_teclado, esperar_conexion_internet
 from funciones.opciones import (
     FUNCIONES_BATERIA,
     FUNCIONES_CONSOLA,
@@ -46,10 +47,11 @@ def main():
         poner_icono_oculto()
         mensaje_bienvenida()
         bateria_pasada = obtener_porcentaje_bateria()
-        mensaje_pasado = ""
         hora_mensaje_pasado = obtener_hora_ultimo_mensaje()
 
         while PROGRAMA_ACTIVO:
+            esperar_conexion_internet()
+
             if (
                 obtener_porcentaje_bateria() != bateria_pasada
                 and not bateria_esta_cargando()
@@ -71,10 +73,7 @@ def main():
                 bateria_cargada()
                 bateria_pasada = obtener_porcentaje_bateria()
 
-            if (
-                obtener_hora_ultimo_mensaje() != hora_mensaje_pasado
-                and mensaje_pasado != ""
-            ):
+            if obtener_hora_ultimo_mensaje() != hora_mensaje_pasado:
                 # & BATERIA
                 if verificar_string_en_llave_diccionario(
                     FUNCIONES_BATERIA,
@@ -87,8 +86,6 @@ def main():
                 elif verificar_llave_diccionario_en_string(
                     FUNCIONES_SISTEMA,
                     quitar_acentos(obtener_ultimo_mensaje()),
-                ) and not verificar_llave_diccionario_en_string(
-                    FUNCIONES_SISTEMA, quitar_acentos(mensaje_pasado)
                 ):
                     palabras = quitar_acentos(obtener_ultimo_mensaje()).split(" ")
                     if len(palabras) == 1:
@@ -147,7 +144,6 @@ def main():
             elif bateria_esta_cargando() and funciones_bateria.AHORRO_ACTIVADO:
                 desactivar_ahorro_bateria()
 
-            mensaje_pasado = obtener_ultimo_mensaje()
     except Exception as e:  # pylint: disable=broad-exception-caught
         mostrar_mensaje_sin_detener_ejecucion("ERROR EN EJECUCIÓN PRINCIPAL", str(e))
 

@@ -10,8 +10,9 @@ def apagar_pc(tiempo_minutos):
     Args:
         tiempo_minutos (float): cuenta regresiva para apagar al pc
     """
-    tiempo_minutos = int(tiempo_minutos) if int(tiempo_minutos) > 0 else 0.25
-    system(f"shutdown /s /t {int(tiempo_minutos * 60)}")
+    tiempo_minutos = int(tiempo_minutos) if int(tiempo_minutos) > 0 else 0.5
+    system(f"timeout /t {int(tiempo_minutos * 60)} /nobreak\n")
+    system("shutdown /s /t 0")
 
 
 def suspender_pc(tiempo_minutos):
@@ -20,7 +21,7 @@ def suspender_pc(tiempo_minutos):
     Args:
         tiempo_minutos (float): cuenta regresiva para suspender al pc
     """
-    tiempo_minutos = int(tiempo_minutos) if int(tiempo_minutos) > 0 else 0.25
+    tiempo_minutos = int(tiempo_minutos) if int(tiempo_minutos) > 0 else 0.5
     system(f"timeout /t {int(tiempo_minutos * 60)} /nobreak\n")
     system("rundll32.exe powrprof.dll,SetSuspendState Sleep")
 
@@ -31,8 +32,9 @@ def reiniciar_pc(tiempo_minutos):
     Args:
         tiempo_minutos (float): cuenta regresiva para reiniciar al pc
     """
-    tiempo_minutos = int(tiempo_minutos) if int(tiempo_minutos) > 0 else 0.25
-    system(f"shutdown /r /t {int(tiempo_minutos * 60)}")
+
+    system(f"timeout /t {int(tiempo_minutos * 60)} /nobreak\n")
+    system("shutdown /r /t 0")
 
 
 def bloquear_pc(tiempo_minutos):
@@ -41,6 +43,6 @@ def bloquear_pc(tiempo_minutos):
     Args:
         tiempo_minutos (float): cuenta regresiva para reiniciar al pc
     """
-    tiempo_minutos = int(tiempo_minutos) if int(tiempo_minutos) > 0 else 0.25
+    tiempo_minutos = int(tiempo_minutos) if int(tiempo_minutos) > 0 else 0.5
     system(f"timeout /t {int(tiempo_minutos * 60)} /nobreak\n")
     system("rundll32.exe user32.dll,LockWorkStation")
