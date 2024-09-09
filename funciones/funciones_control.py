@@ -2,13 +2,11 @@
 # cSpell:ignore bluetooth clsctx comtypes nexttrack playpause prevtrack pyautogui pycaw bthserv
 # cSpell:ignore  setdefaulttimeout conexion ejecucion
 
-import time
 from ctypes import POINTER, cast
-from socket import AF_INET, SOCK_STREAM, error, setdefaulttimeout, socket
+from socket import AF_INET, SOCK_STREAM, error, socket
 from time import sleep
 
 from comtypes import CLSCTX_ALL
-from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
 from pyautogui import press, typewrite
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from screen_brightness_control import get_brightness, set_brightness
