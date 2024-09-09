@@ -44,7 +44,6 @@ def obtener_hora_ultimo_mensaje():
         return ""
     except:  # pylint: disable=bare-except  # noqa: E722
         obtener_hora_ultimo_mensaje()
-        return ""
 
 
 def obtener_ultimo_mensaje():
@@ -66,7 +65,6 @@ def obtener_ultimo_mensaje():
         return ""
     except:  # pylint: disable=bare-except  # noqa: E722
         obtener_ultimo_mensaje()
-        return ""
 
 
 def enviar_mensaje(
