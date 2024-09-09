@@ -20,13 +20,7 @@ volume = cast(interface, POINTER(IAudioEndpointVolume))
 
 def esperar_conexion_internet():
     """Mantiene un contador mientras encuentra conexión a internet, con límite de tiempo"""
-    start_time = time.time()
     while not conectado_internet():
-        if time.time() - start_time > 60:
-            mostrar_mensaje_sin_detener_ejecucion(
-                "ERROR", "Tiempo de espera agotado para la conexión a internet."
-            )
-            return False
         sleep(2)
     return True
 
@@ -38,7 +32,6 @@ def conectado_internet():
         bool: True si el dispositivo tiene internet y False si hay algún error
     """
     try:
-        setdefaulttimeout(3)
         conn = socket(AF_INET, SOCK_STREAM)
         conn.connect(("8.8.8.8", 53))
         conn.close()

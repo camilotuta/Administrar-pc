@@ -14,7 +14,7 @@ from funciones.funciones_bateria import (
     desactivar_ahorro_bateria,
     obtener_porcentaje_bateria,
 )
-from funciones.funciones_control import escribir_con_teclado, esperar_conexion_internet
+from funciones.funciones_control import esperar_conexion_internet
 from funciones.opciones import (
     FUNCIONES_BATERIA,
     FUNCIONES_CONSOLA,
