@@ -30,7 +30,7 @@ def desactivar_ahorro_bateria():
     """
     global AHORRO_ACTIVADO  # pylint: disable=[global-statement]
     AHORRO_ACTIVADO = False
-    system("powercfg /setdcvalueindex SCHEME_CURRENT SUB_ENERGYSAVER ESBATTTHRESHOLD 0")
+    system("powercfg /setdcvalueindex SCHEME_CURRENT SUB_ENERGYSAVER ESBATTTHRESHOLD 20")
     system("powercfg /setactive SCHEME_CURRENT")
 
 
