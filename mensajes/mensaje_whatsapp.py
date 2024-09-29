@@ -3,15 +3,16 @@
 
 from threading import Thread
 
+from twilio.rest import Client
+
 from data.user_data import (
     AUTH_TOKEN_ENV,
     FROM_WHATSAPP_NUMBER_ENV,
     SID_ENV,
     TO_WHATSAPP_NUMBER_ENV,
 )
-from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
-from twilio.rest import Client
 from funciones.funciones_control import esperar_conexion_internet
+from mensajes.message_box import mostrar_mensaje_sin_detener_ejecucion
 
 
 def conectar_cliente():
@@ -43,11 +44,11 @@ def obtener_hora_ultimo_mensaje():
                 return last_message.date_sent
         return ""
     except:  # pylint: disable=bare-except  # noqa: E722
-        obtener_hora_ultimo_mensaje()
+        return obtener_hora_ultimo_mensaje()
 
 
-def obtener_ultimo_mensaje():
-    """Se devuelve el cuerpo del ultimo mensaje enviado o recibido por el chat
+def obtener_texto_ultimo_mensaje():
+    """Se devuelve el cuerpo del ultimo recibido por el chat
 
     Returns:
         str: ultimo mensaje del chat de WhatsApp
@@ -64,7 +65,28 @@ def obtener_ultimo_mensaje():
             return ""
         return ""
     except:  # pylint: disable=bare-except  # noqa: E722
-        obtener_ultimo_mensaje()
+        return obtener_texto_ultimo_mensaje()
+
+
+def obtener_sid_ultimo_mensaje():
+    """Se devuelve el SID del ultimo recibido por el chat
+
+    Returns:
+        str: ultimo mensaje del chat de WhatsApp
+    """
+    client = conectar_cliente()
+
+    try:
+        esperar_conexion_internet()
+        messages = client.messages.list(limit=1, to=FROM_WHATSAPP_NUMBER_ENV)
+        if messages:
+            last_message = messages[0]
+            if last_message.from_ == TO_WHATSAPP_NUMBER_ENV:
+                return last_message.sid.lower()
+            return ""
+        return ""
+    except:  # pylint: disable=bare-except  # noqa: E722
+        return obtener_sid_ultimo_mensaje()
 
 
 def enviar_mensaje(
